@@ -8,4 +8,5 @@
     <string name="top_right_illus">Top Right Illus</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="username_and_password_are_valid">Username and Password are valid.</string>
 </resources>
