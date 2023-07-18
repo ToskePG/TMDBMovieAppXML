@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">TMDBMovieAppXML</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movies">Movies</string>
+    <string name="login">Login</string>
+    <string name="in_order_to_continue_please_log_in">In order to continue please log in</string>
+    <string name="top_right_illus">Top Right Illus</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="username_and_password_are_valid">Username and Password are valid.</string>
 </resources>
