@@ -27,7 +27,7 @@
             android:contentDescription="@string/movies_poster"/>
 
         <TextView
-            android:id="@+id/showsName"
+            android:id="@+id/tvMoviesTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -38,7 +38,7 @@
             tools:text="@string/movies_second"/>
 
         <TextView
-            android:id="@+id/showsDescription"
+            android:id="@+id/tvMoviesDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
