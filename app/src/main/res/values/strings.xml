@@ -9,4 +9,11 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="username_and_password_are_valid">Username and Password are valid.</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="your_shows_are_not_showing_get_it">Your shows are not showing, get it?</string>
+    <string name="background">background</string>
+    <string name="recyclerview_for_movies">RecyclerView For Movies</string>
+    <string name="movies_poster">Movies Poster</string>
+    <string name="movies_second">Movies</string>
+    <string name="description">Description</string>
 </resources>

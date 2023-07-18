@@ -1,12 +1,12 @@
-package com.example.tmdbmovieappxml.presentation
+package com.example.tmdbmovieappxml.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.FragmentLoginBinding
 
@@ -37,7 +37,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             enableLoginButton()
         }
         binding.btnLogin.setOnClickListener{
-            showToast()
+            findNavController().navigate(R.id.actionLogin)
         }
     }
     private fun validateEmail() : Boolean {
@@ -56,10 +56,5 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun enableLoginButton(){
         binding.btnLogin.isEnabled = checkLoginButton()
-    }
-
-    private fun showToast() {
-        val message = getString(R.string.username_and_password_are_valid)
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }
