@@ -1,0 +1,15 @@
+package com.example.tmdbmovieappxml.repository
+
+import com.example.tmdbmovieappxml.model.RatingDto
+import com.example.tmdbmovieappxml.model.RatingResponse
+import com.example.tmdbmovieappxml.remote.RetrofitInstance
+import retrofit2.Response
+
+class MovieRepository {
+    suspend fun getTopRatedMovies() = RetrofitInstance.api?.getTopRatedMovies()
+    suspend fun searchMovies(query: String) = RetrofitInstance.api!!.searchMovies(query = query)
+    suspend fun rateMovie(movieId: Int, rating: Double): Response<RatingResponse> {
+        val ratingDto = RatingDto(rating)
+        return RetrofitInstance.api?.rateMovie(movieId = movieId, ratingDto = ratingDto) ?: error("API is not initialized.")
+    }
+}
