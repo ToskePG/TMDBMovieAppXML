@@ -5,17 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.FragmentMoviesBinding
+import com.example.tmdbmovieappxml.presentation.MoviesActivity
+import com.example.tmdbmovieappxml.presentation.MoviesViewModel
 import com.example.tmdbmovieappxml.presentation.adapters.MoviesAdapter
+import com.example.tmdbmovieappxml.utils.NetworkResponse
 
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var viewModel: MoviesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,9 +30,36 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding = FragmentMoviesBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = (activity as MoviesActivity).viewModel
         setUpRecyclerView()
+        moviesAdapter.setOnItemClickListener { movieDto ->
+            showToast(movieDto.original_title)
+        }
+        viewModel.topRatedMovies.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResponse.Success -> {
+                    response.data?.let { moviesResponse ->
+                        moviesAdapter.differ.submitList(moviesResponse.results)
+                    }
+                }
+                is NetworkResponse.Error -> {
+                    response.message?.let {
+                        // Report an error
+                    }
+                }
+                is NetworkResponse.Loading -> {
+                    response.message?.let {
+                        // Report an error
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setUpRecyclerView(){
@@ -36,14 +67,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         binding.moviesRecycler.apply {
             adapter = moviesAdapter
             layoutManager = LinearLayoutManager(activity)
-        }
-        if(moviesAdapter.differ.currentList.isEmpty()){
-            binding.apply {
-                moviesRecycler.isVisible = false
-                camera.isVisible = true
-                ivElipse.isVisible = true
-                tvNoMovies.isVisible = true
-            }
         }
     }
 }
