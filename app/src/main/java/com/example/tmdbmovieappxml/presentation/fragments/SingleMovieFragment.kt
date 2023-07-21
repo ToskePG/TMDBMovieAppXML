@@ -15,11 +15,13 @@ class SingleMovieFragment : Fragment(R.layout.fragment_single_movie) {
     private lateinit var viewModel: MoviesViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentSingleMovieBinding.inflate(layoutInflater,
+            container,
+            false)
+        return  binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
