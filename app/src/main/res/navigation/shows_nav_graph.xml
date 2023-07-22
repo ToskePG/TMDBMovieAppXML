@@ -18,5 +18,18 @@
         android:id="@+id/moviesFragment"
         android:name="com.example.tmdbmovieappxml.presentation.fragments.MoviesFragment"
         android:label="fragment_movies"
-        tools:layout="@layout/fragment_movies" />
+        tools:layout="@layout/fragment_movies" >
+        <action
+            android:id="@+id/actionGoBack"
+            app:destination="@id/singleMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleMovieFragment"
+        android:name="com.example.tmdbmovieappxml.presentation.fragments.SingleMovieFragment"
+        android:label="fragment_single_movie"
+        tools:layout="@layout/fragment_single_movie" >
+        <action
+            android:id="@+id/toSingleMovie"
+            app:destination="@id/moviesFragment" />
+    </fragment>
 </navigation>
