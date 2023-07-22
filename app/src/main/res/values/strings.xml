@@ -17,4 +17,7 @@
     <string name="movies_second">Movies</string>
     <string name="description">Description</string>
     <string name="top_rated_movies_second">Top Rated Movies</string>
+    <string name="movie_main_title">Movie Main Title</string>
+    <string name="movie_main_title_title">Movie Main Title</string>
+    <string name="tabs_for_viewpager">Tabs for viewPager</string>
 </resources>
