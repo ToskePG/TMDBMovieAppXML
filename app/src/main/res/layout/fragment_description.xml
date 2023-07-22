@@ -18,4 +18,4 @@
         android:text="@string/godfather_overview"
         />
 
-</androidx.constraintlayout.helper.widget.Carousel>
+</androidx.constraintlayout.widget.ConstraintLayout>
