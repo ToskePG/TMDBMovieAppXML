@@ -30,7 +30,7 @@ interface MoviesApi {
     ) : Response<MoviesDto>
 
     @POST("movie/{movie_id}/rating")
-    suspend fun rateMovie(
+    suspend fun  rateMovie(
         @Header("Authorization") tokenBearer: String = TOKEN_BEARER,
         @Path("movie_id") movieId: Int,
         @Body ratingDto: RatingDto

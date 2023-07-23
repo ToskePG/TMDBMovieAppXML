@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.FragmentMoviesBinding
+import com.example.tmdbmovieappxml.model.MovieDto
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
 import com.example.tmdbmovieappxml.presentation.MoviesViewModel
 import com.example.tmdbmovieappxml.presentation.adapters.MoviesAdapter
@@ -36,6 +38,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         setUpRecyclerView()
         moviesAdapter.setOnItemClickListener { movieDto ->
             showToast(movieDto.original_title)
+            goToMovieDetails(movieDto)
         }
         viewModel.topRatedMovies.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -68,5 +71,12 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             adapter = moviesAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+    }
+
+    private fun goToMovieDetails(movieDto: MovieDto){
+        val bundle = Bundle().apply {
+            putSerializable("movieDto", movieDto)
+        }
+        findNavController().navigate(R.id.singleMovieFragment, bundle)
     }
 }

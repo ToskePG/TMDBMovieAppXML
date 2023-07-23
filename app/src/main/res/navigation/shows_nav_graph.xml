@@ -18,5 +18,37 @@
         android:id="@+id/moviesFragment"
         android:name="com.example.tmdbmovieappxml.presentation.fragments.MoviesFragment"
         android:label="fragment_movies"
-        tools:layout="@layout/fragment_movies" />
+        tools:layout="@layout/fragment_movies" >
+        <action
+            android:id="@+id/toSingleMovie"
+            app:destination="@id/singleMovieFragment" />
+        <argument
+            android:name="movieDto"
+            app:argType="com.example.tmdbmovieappxml.model.MovieDto"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleMovieFragment"
+        android:name="com.example.tmdbmovieappxml.presentation.fragments.SingleMovieFragment"
+        android:label="fragment_single_movie"
+        tools:layout="@layout/fragment_single_movie" >
+        <action
+            android:id="@+id/actionGoBack"
+            app:destination="@id/moviesFragment" />
+        <action
+            android:id="@+id/action_singleMovieFragment_self"
+            app:destination="@id/singleMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/descriptionFragment"
+        android:name="com.example.tmdbmovieappxml.presentation.fragments.tabLayoutFragments.DescriptionFragment"
+        android:label="fragment_description"
+        tools:layout="@layout/fragment_description">
+        <argument
+            android:name="movieDto"
+            app:argType="com.example.tmdbmovieappxml.model.MovieDto"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
