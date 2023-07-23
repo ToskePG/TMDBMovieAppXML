@@ -31,4 +31,7 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
         }
         return NetworkResponse.Error(response.message())
     }
+    fun rateMovie(movieId: Int, rating: Double) = viewModelScope.launch {
+        moviesRepository.rateMovie(movieId, rating)
+    }
 }
