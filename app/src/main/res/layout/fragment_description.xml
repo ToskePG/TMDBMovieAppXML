@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragments.tabLayoutFragments.DescriptionFragment">
+    tools:context=".presentation.fragments.tabLayoutFragments.DescriptionFragment"
+    android:maxHeight="360dp">
 
     <TextView
+        android:id="@+id/tvOverview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,5 +19,21 @@
         android:textSize="20sp"
         android:text="@string/godfather_overview"
         />
+
+    <RatingBar
+        android:id="@+id/rbRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvOverview"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:progressTint="#3d1d72"
+        android:progressBackgroundTint="#808080"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="3.5"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
