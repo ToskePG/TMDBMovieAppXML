@@ -36,7 +36,10 @@ class DescriptionFragment : Fragment(R.layout.fragment_description) {
         if(movieDetails!=null){
             binding.apply {
                 tvOverview.text = movieDetails.overview
-                rbRatingBar.rating = movieDetails.vote_average.toFloat()
+                val movieRtg = (movieDetails.vote_average)/2
+                val rtg = movieRtg.toFloat()
+                rbRatingBar.rating = rtg
+                tvRating.text = movieRtg.toString()
             }
         }
         binding.btnButtonAddRating.setOnClickListener{
