@@ -74,10 +74,9 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     }
 
     private fun goToMovieDetails(movieDto: MovieDto){
-        // Will later be used to transfer data between fragments
-        /*val bundle = Bundle().apply {
+        val bundle = Bundle().apply {
             putSerializable("movieDto", movieDto)
-        }*/
-        findNavController().navigate(R.id.singleMovieFragment)
+        }
+        findNavController().navigate(R.id.singleMovieFragment, bundle)
     }
 }
