@@ -11,6 +11,7 @@ import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.FragmentSingleMovieBinding
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
 import com.example.tmdbmovieappxml.presentation.adapters.CustomFragmentPagerAdapter
+import com.example.tmdbmovieappxml.utils.Constants.Companion.IMAGE_URL
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -34,7 +35,7 @@ class SingleMovieFragment : Fragment(R.layout.fragment_single_movie) {
         val movie = args.movieDto
         binding.apply {
             if(movie!=null){
-                Glide.with(ivPoster.context).load(movie.poster_path).into(ivPoster)
+                Glide.with(ivPoster.context).load(IMAGE_URL + movie.backdrop_path).into(ivPoster)
                 tvMovieTitle.text = movie.title
             }
         }
