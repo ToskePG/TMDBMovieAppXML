@@ -23,4 +23,7 @@
     <string name="godfather_overview">Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.</string>
     <string name="_3_5">3.5</string>
     <string name="rate_this_movie">Rate This Movie</string>
+    <string name="add_your_rating">Add your rating</string>
+    <string name="submit_rating">Submit Rating</string>
+    <string name="submit_rating_button">Submit Rating</string>
 </resources>
