@@ -38,7 +38,7 @@ class SingleMovieFragment : Fragment(R.layout.fragment_single_movie) {
                 tvMovieTitle.text = movie.title
             }
         }
-        val pagerAdapter = CustomFragmentPagerAdapter(activity as MoviesActivity)
+        val pagerAdapter = CustomFragmentPagerAdapter(activity as MoviesActivity, movie!!)
         binding.viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {

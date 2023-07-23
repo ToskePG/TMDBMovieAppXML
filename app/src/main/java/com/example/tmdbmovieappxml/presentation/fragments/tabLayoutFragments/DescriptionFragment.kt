@@ -39,6 +39,9 @@ class DescriptionFragment : Fragment(R.layout.fragment_description) {
                 rbRatingBar.rating = movieDetails.vote_average.toFloat()
             }
         }
+        binding.btnButtonAddRating.setOnClickListener{
+            showRatingBottomSheet()
+        }
     }
 
     private fun showRatingBottomSheet() {
@@ -56,8 +59,8 @@ class DescriptionFragment : Fragment(R.layout.fragment_description) {
                 Toast.LENGTH_SHORT).show()
             dialog.dismiss()
             val rating: Double = bottomSheetBinding.ratingBar.rating.toDouble()
-            val movieId = args.movieDto.id
-            viewModel.rateMovie(movieId, rating)
+            val movieId = args.movieDto?.id
+            viewModel.rateMovie(movieId!!, rating)
         }
     }
 }
