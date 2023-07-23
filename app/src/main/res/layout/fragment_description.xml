@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.fragments.tabLayoutFragments.DescriptionFragment"
-    android:maxHeight="360dp">
+    android:maxHeight="400dp">
 
     <TextView
         android:id="@+id/tvOverview"
@@ -35,5 +35,32 @@
         android:stepSize="0.5"
         android:rating="3.5"/>
 
+    <TextView
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/rbRatingBar"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp"
+        android:text="@string/_3_5"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnButtonAddRating"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#3d1d72"
+        app:cornerRadius="30dp"
+        android:enabled="true"
+        android:text="@string/rate_this_movie"
+        android:textColor="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
