@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.tmdbmovieappxml.model.MovieDto
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
-import com.example.tmdbmovieappxml.presentation.fragments.tabLayoutFragments.CreditsFragment
 import com.example.tmdbmovieappxml.presentation.fragments.tabLayoutFragments.DescriptionFragment
 import com.example.tmdbmovieappxml.presentation.fragments.tabLayoutFragments.ReviewsFragment
 
@@ -16,14 +15,28 @@ class CustomFragmentPagerAdapter(activity: MoviesActivity,private val movieDto: 
         return when (position) {
             0 -> {
                 // Pass the movieDto to the DescriptionFragment
-                val fragment = DescriptionFragment()
-                fragment.arguments = Bundle().apply {
+                val openDescriptionFragment = DescriptionFragment()
+                openDescriptionFragment.arguments = Bundle().apply {
                     putSerializable("movieDto", movieDto)
                 }
-                fragment
+                openDescriptionFragment
             }
-            1 -> CreditsFragment()
-            2 -> ReviewsFragment()
+            1 -> {
+                // Pass the movieDto to the CreditsFragment
+                val openDescriptionFragment = DescriptionFragment()
+                openDescriptionFragment.arguments = Bundle().apply {
+                    putSerializable("movieDto", movieDto)
+                }
+                openDescriptionFragment
+            }
+            2 -> {
+                // Pass the movieDto to the ReviewsFragment
+                val openReviewsFragment = ReviewsFragment()
+                openReviewsFragment.arguments = Bundle().apply {
+                    putSerializable("movieDto", movieDto)
+                }
+                openReviewsFragment
+            }
             else -> throw IllegalArgumentException("Invalid position: $position")
         }
     }
