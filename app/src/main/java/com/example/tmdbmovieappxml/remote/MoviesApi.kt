@@ -1,5 +1,6 @@
 package com.example.tmdbmovieappxml.remote
 
+import com.example.tmdbmovieappxml.model.CreditsDto
 import com.example.tmdbmovieappxml.model.MoviesDto
 import com.example.tmdbmovieappxml.model.RatingDto
 import com.example.tmdbmovieappxml.model.RatingResponse
@@ -35,4 +36,10 @@ interface MoviesApi {
         @Path("movie_id") movieId: Int,
         @Body ratingDto: RatingDto
     ): Response<RatingResponse>
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getCredits(
+        @Header("Authorization") tokenBearer: String = TOKEN_BEARER,
+        @Path("movie_id") movieId: Int
+    ) : Response<CreditsDto>
 }
