@@ -6,16 +6,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.fragments.tabLayoutFragments.CreditsFragment">
 
-    <TextView
+    <Button
+        android:id="@+id/btnCast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_cast_members"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="12dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/creditsRecycler"
+        app:layout_constraintTop_toBottomOf="@+id/btnCast"
+        android:layout_marginTop="64dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="20sp"
-        android:text="@string/godfather_overview"
-        />
+        tools:listitem="@layout/single_person_item"
+        android:orientation="horizontal"
+        android:contentDescription="@string/rv_for_credits"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/castRecycler"
+        app:layout_constraintTop_toBottomOf="@+id/btnCast"
+        android:layout_marginTop="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/single_cast_member"
+        android:orientation="horizontal"
+        android:contentDescription="@string/rv_for_credits"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.tmdbmovieappxml.presentation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tmdbmovieappxml.model.CreditsDto
 import com.example.tmdbmovieappxml.model.MoviesDto
 import com.example.tmdbmovieappxml.repository.MovieRepository
 import com.example.tmdbmovieappxml.utils.NetworkResponse
@@ -12,9 +13,16 @@ import retrofit2.Response
 class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel() {
 
     val topRatedMovies: MutableLiveData<NetworkResponse<MoviesDto>> = MutableLiveData()
+    val movieCrew: MutableLiveData<NetworkResponse<CreditsDto>> = MutableLiveData()
 
     init {
         getTopRatedMovies()
+    }
+
+    fun fetchCredits(movieId: Int) = viewModelScope.launch {
+        movieCrew.postValue(NetworkResponse.Loading())
+        val crewResponse = moviesRepository.fethcCredits(movieId)
+        movieCrew.postValue(handleCreditsResponse(crewResponse!!))
     }
 
     private fun getTopRatedMovies() = viewModelScope.launch {
@@ -27,6 +35,15 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
         if(response.isSuccessful){
             response.body()?.let { resultsResponse->
                 return NetworkResponse.Success(resultsResponse)
+            }
+        }
+        return NetworkResponse.Error(response.message())
+    }
+
+    private fun handleCreditsResponse(response: Response<CreditsDto>) : NetworkResponse<CreditsDto>{
+        if(response.isSuccessful){
+            response.body()?.let { resultResponse->
+                return NetworkResponse.Success(resultResponse)
             }
         }
         return NetworkResponse.Error(response.message())

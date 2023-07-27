@@ -34,7 +34,8 @@
         android:stepSize="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ratingText" />
+        app:layout_constraintTop_toBottomOf="@id/ratingText"
+        android:contentDescription="@string/ignore"/>
 
 
     <com.google.android.material.button.MaterialButton

@@ -26,4 +26,12 @@
     <string name="add_your_rating">Add your rating</string>
     <string name="submit_rating">Submit Rating</string>
     <string name="submit_rating_button">Submit Rating</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="director_of_photography">Director of Photography</string>
+    <string name="krzysztof_kie_lowski">Krzysztof Kieślowski</string>
+    <string name="_0_6">0.6</string>
+    <string name="rv_for_credits">RV for credits</string>
+    <string name="show_cast_members">Show Cast Members</string>
+    <string name="show_crew_members">Show Crew Members</string>
+    <string name="ignore">Ignore</string>
 </resources>
