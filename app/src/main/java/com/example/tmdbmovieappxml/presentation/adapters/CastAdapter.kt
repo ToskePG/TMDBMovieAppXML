@@ -44,7 +44,7 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.CastViewHolder>(){
     override fun onBindViewHolder(holder: CastViewHolder, position: Int) {
         val person = differ.currentList[position]
         holder.binding.apply {
-            if(person.profile_path == null || person.profile_path == ""){
+            if(person.profile_path == ""){
                 ivProfilePic.setImageResource(R.drawable.cast_picture)
                 tvPosition.text = person.known_for_department
                 tvFullName.text = person.name
