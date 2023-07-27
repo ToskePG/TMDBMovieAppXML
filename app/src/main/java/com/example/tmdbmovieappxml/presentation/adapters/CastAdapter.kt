@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
+import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.SingleCastMemberBinding
 import com.example.tmdbmovieappxml.model.Cast
 import com.example.tmdbmovieappxml.utils.Constants
@@ -43,11 +44,18 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.CastViewHolder>(){
     override fun onBindViewHolder(holder: CastViewHolder, position: Int) {
         val person = differ.currentList[position]
         holder.binding.apply {
-            Glide.with(ivProfilePic.context).load(Constants.IMAGE_URL + person.profile_path)
-                .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                .into(ivProfilePic)
-            tvPosition.text = person.known_for_department
-            tvFullName.text = person.name
+            if(person.profile_path == null || person.profile_path == ""){
+                ivProfilePic.setImageResource(R.drawable.cast_picture)
+                tvPosition.text = person.known_for_department
+                tvFullName.text = person.name
+            }
+            else {
+                Glide.with(ivProfilePic.context).load(Constants.IMAGE_URL + person.profile_path)
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                    .into(ivProfilePic)
+                tvPosition.text = person.known_for_department
+                tvFullName.text = person.name
+            }
         }
     }
 }
