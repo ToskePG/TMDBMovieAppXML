@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/single_person_item"
+        android:orientation="horizontal"
         android:contentDescription="@string/rv_for_credits"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

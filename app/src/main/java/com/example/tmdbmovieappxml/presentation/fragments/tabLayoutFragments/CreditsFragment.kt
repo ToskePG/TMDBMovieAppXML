@@ -5,22 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.tmdbmovieappxml.R
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdbmovieappxml.databinding.FragmentCreditsBinding
+import com.example.tmdbmovieappxml.presentation.adapters.CreditsAdapter
 
 class CreditsFragment : Fragment() {
 
     private lateinit var binding: FragmentCreditsBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var creditsAdapter: CreditsAdapter
+    private val args: CreditsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_credits, container, false)
+    ): View {
+        binding = FragmentCreditsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FragmentCreditsBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView(){
+        creditsAdapter = CreditsAdapter()
+        binding.creditsRecycler.apply {
+            adapter = creditsAdapter
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
 }
