@@ -5,56 +5,68 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdbmovieappxml.R
+import com.example.tmdbmovieappxml.databinding.FragmentReviewsBinding
+import com.example.tmdbmovieappxml.presentation.MoviesActivity
+import com.example.tmdbmovieappxml.presentation.MoviesViewModel
+import com.example.tmdbmovieappxml.presentation.adapters.ReviewAdapter
+import com.example.tmdbmovieappxml.utils.NetworkResponse
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ReviewsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ReviewsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentReviewsBinding
+    private val args: ReviewsFragmentArgs by navArgs()
+    private lateinit var reviewAdapter: ReviewAdapter
+    private lateinit var viewModel: MoviesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reviews, container, false)
+    ): View {
+        binding = FragmentReviewsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ReviewsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ReviewsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FragmentReviewsBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = (activity as MoviesActivity).viewModel
+        val movieId = args.movieDto!!.id
+        initRecyclerView()
+        initReviews(movieId)
+        viewModel.reviews.observe(viewLifecycleOwner){response->
+            when(response){
+                is NetworkResponse.Success -> {
+                    response.data?.let { reviewsResponse->
+                        reviewAdapter.differ.submitList(reviewsResponse.results)
+                    }
+                }
+                is NetworkResponse.Error -> {
+                    response.message?.let{
+                        // Report an error
+                    }
+                }
+                is NetworkResponse.Loading -> {
+                    response.message?.let {
+                        // Report an error
+                    }
                 }
             }
+        }
     }
+
+    private fun initReviews(movieId: Int){
+        viewModel.fetchReviews(movieId)
+    }
+    private fun initRecyclerView() {
+        reviewAdapter = ReviewAdapter()
+        binding.rvReviews.apply {
+            adapter = reviewAdapter
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        }
+    }
+
 }

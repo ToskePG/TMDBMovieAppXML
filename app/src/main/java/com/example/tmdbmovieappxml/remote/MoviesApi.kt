@@ -4,6 +4,7 @@ import com.example.tmdbmovieappxml.model.CreditsDto
 import com.example.tmdbmovieappxml.model.MoviesDto
 import com.example.tmdbmovieappxml.model.RatingDto
 import com.example.tmdbmovieappxml.model.RatingResponse
+import com.example.tmdbmovieappxml.model.ReviewDto
 import com.example.tmdbmovieappxml.utils.Constants.Companion.API_KEY
 import com.example.tmdbmovieappxml.utils.Constants.Companion.TOKEN_BEARER
 import retrofit2.Response
@@ -42,4 +43,10 @@ interface MoviesApi {
         @Header("Authorization") tokenBearer: String = TOKEN_BEARER,
         @Path("movie_id") movieId: Int
     ) : Response<CreditsDto>
+
+    @GET("movie/{movie_id}/reviews")
+    suspend fun getReviews(
+        @Header("Authorization") tokenBearer: String = TOKEN_BEARER,
+        @Path("movie_id") movieId: Int
+    ) : Response<ReviewDto>
 }

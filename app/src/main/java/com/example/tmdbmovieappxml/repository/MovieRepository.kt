@@ -13,4 +13,5 @@ class MovieRepository {
         return RetrofitInstance.api?.rateMovie(movieId = movieId, ratingDto = ratingDto) ?: error("API is not initialized.")
     }
     suspend fun fethcCredits(movieId: Int) = RetrofitInstance.api?.getCredits(movieId = movieId)
+    suspend fun fetchReviews(movieId: Int) = RetrofitInstance.api?.getReviews(movieId = movieId)
 }

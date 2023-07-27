@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tmdbmovieappxml.model.CreditsDto
 import com.example.tmdbmovieappxml.model.MoviesDto
+import com.example.tmdbmovieappxml.model.ReviewDto
 import com.example.tmdbmovieappxml.repository.MovieRepository
 import com.example.tmdbmovieappxml.utils.NetworkResponse
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
 
     val topRatedMovies: MutableLiveData<NetworkResponse<MoviesDto>> = MutableLiveData()
     val movieCrew: MutableLiveData<NetworkResponse<CreditsDto>> = MutableLiveData()
+    val reviews: MutableLiveData<NetworkResponse<ReviewDto>> = MutableLiveData()
 
     init {
         getTopRatedMovies()
@@ -50,5 +52,9 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
     }
     fun rateMovie(movieId: Int, rating: Double) = viewModelScope.launch {
         moviesRepository.rateMovie(movieId, rating)
+    }
+
+    fun fetchReviews(movieId: Int) = viewModelScope.launch {
+        moviesRepository.fetchReviews(movieId)
     }
 }
