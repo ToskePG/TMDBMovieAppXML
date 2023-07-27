@@ -22,12 +22,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/ivProfilePic"
-        android:text="Krzysztof Kieślowski"
+        android:text="@string/krzysztof_kie_lowski"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="24sp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="8dp"/>
 
+    <TextView
+        android:id="@+id/tvPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvFullName"
+        android:text="@string/director_of_photography"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp"
+        android:layout_marginTop="8dp"/>
+
+    <RatingBar
+        android:id="@+id/rbPopularity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvPosition"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:progressTint="#FFD700"
+        android:progressBackgroundTint="#808080"
+        android:isIndicator="true"
+        android:numStars="1"
+        android:stepSize="0.1"
+        android:rating="0.6"/>
+
+    <TextView
+        android:id="@+id/tvPopularity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/rbPopularity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+        android:textColor="#FFD700"
+        android:text="@string/_0_6"
+        android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
