@@ -22,7 +22,7 @@ buildscript {
         navigation_ui_ktx_version = '2.6.0'
         glide_version = '4.14.2'
         glide_compiler_version = '4.12.0'
-        kotlin_version = '1.5.21'
+        kotlin_version = '1.9.0'
     }
     repositories {
         google()
@@ -30,7 +30,9 @@ buildscript {
     }
     dependencies {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version") //add here.
-        classpath("com.android.tools.build:gradle:8.0.2") // Update to the latest Android Gradle Plugin version
+        classpath("com.android.tools.build:gradle:8.0.2")
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // Update to the latest Android Gradle Plugin version
     }
 }
 plugins {

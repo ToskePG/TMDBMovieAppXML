@@ -19,7 +19,7 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
         getTopRatedMovies()
     }
 
-    private fun fetchCredits(movieId: Int) = viewModelScope.launch {
+    fun fetchCredits(movieId: Int) = viewModelScope.launch {
         movieCrew.postValue(NetworkResponse.Loading())
         val crewResponse = moviesRepository.fethcCredits(movieId)
         movieCrew.postValue(handleCreditsResponse(crewResponse!!))

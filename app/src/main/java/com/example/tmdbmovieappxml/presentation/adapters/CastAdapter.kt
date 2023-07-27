@@ -8,29 +8,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
-import com.example.tmdbmovieappxml.databinding.SinglePersonItemBinding
-import com.example.tmdbmovieappxml.model.Crew
-import com.example.tmdbmovieappxml.utils.Constants.Companion.IMAGE_URL
+import com.example.tmdbmovieappxml.databinding.SingleCastMemberBinding
+import com.example.tmdbmovieappxml.model.Cast
+import com.example.tmdbmovieappxml.utils.Constants
 
-class CreditsAdapter : RecyclerView.Adapter<CreditsAdapter.CreditsViewHolder>(){
+class CastAdapter : RecyclerView.Adapter<CastAdapter.CastViewHolder>(){
 
-    inner class CreditsViewHolder(val binding: SinglePersonItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class CastViewHolder(val binding: SingleCastMemberBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Crew>(){
-        override fun areItemsTheSame(oldItem: Crew, newItem: Crew): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<Cast>(){
+        override fun areItemsTheSame(oldItem: Cast, newItem: Cast): Boolean {
             return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: Crew, newItem: Crew): Boolean {
+        override fun areContentsTheSame(oldItem: Cast, newItem: Cast): Boolean {
             return oldItem == newItem
         }
     }
 
     val differ = AsyncListDiffer(this, diffCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreditsViewHolder {
-        return CreditsViewHolder(
-            SinglePersonItemBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastViewHolder {
+        return CastViewHolder(
+            SingleCastMemberBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -40,10 +40,10 @@ class CreditsAdapter : RecyclerView.Adapter<CreditsAdapter.CreditsViewHolder>(){
         return differ.currentList.size
     }
 
-    override fun onBindViewHolder(holder: CreditsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CastViewHolder, position: Int) {
         val person = differ.currentList[position]
         holder.binding.apply {
-            Glide.with(ivProfilePic.context).load(IMAGE_URL + person.profile_path)
+            Glide.with(ivProfilePic.context).load(Constants.IMAGE_URL + person.profile_path)
                 .apply(RequestOptions.bitmapTransform(CircleCrop()))
                 .into(ivProfilePic)
             tvPosition.text = person.known_for_department

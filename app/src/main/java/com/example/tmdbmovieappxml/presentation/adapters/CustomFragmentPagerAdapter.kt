@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.tmdbmovieappxml.model.MovieDto
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
+import com.example.tmdbmovieappxml.presentation.fragments.tabLayoutFragments.CreditsFragment
 import com.example.tmdbmovieappxml.presentation.fragments.tabLayoutFragments.DescriptionFragment
 import com.example.tmdbmovieappxml.presentation.fragments.tabLayoutFragments.ReviewsFragment
 
@@ -23,11 +24,11 @@ class CustomFragmentPagerAdapter(activity: MoviesActivity,private val movieDto: 
             }
             1 -> {
                 // Pass the movieDto to the CreditsFragment
-                val openDescriptionFragment = DescriptionFragment()
-                openDescriptionFragment.arguments = Bundle().apply {
+                val openCreditsFragment = CreditsFragment()
+                openCreditsFragment.arguments = Bundle().apply {
                     putSerializable("movieDto", movieDto)
                 }
-                openDescriptionFragment
+                openCreditsFragment
             }
             2 -> {
                 // Pass the movieDto to the ReviewsFragment
