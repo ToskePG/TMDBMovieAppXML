@@ -20,13 +20,16 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
     init {
         getTopRatedMovies()
     }
-
     fun fetchCredits(movieId: Int) = viewModelScope.launch {
         movieCrew.postValue(NetworkResponse.Loading())
         val crewResponse = moviesRepository.fethcCredits(movieId)
         movieCrew.postValue(handleCreditsResponse(crewResponse!!))
     }
-
+    fun fetchReviews(movieId: Int) = viewModelScope.launch {
+        reviews.postValue(NetworkResponse.Loading())
+        val reviewResponse = moviesRepository.fetchReviews(movieId)
+        reviews.postValue(handleFetchReviews(reviewResponse!!))
+    }
     private fun getTopRatedMovies() = viewModelScope.launch {
         topRatedMovies.postValue(NetworkResponse.Loading())
         val moviesResponse = moviesRepository.getTopRatedMovies()
@@ -50,11 +53,15 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
         }
         return NetworkResponse.Error(response.message())
     }
+    private fun handleFetchReviews(response: Response<ReviewDto>) : NetworkResponse<ReviewDto>{
+        if(response.isSuccessful){
+            response.body()?.let { reviewResponse->
+                return NetworkResponse.Success(reviewResponse)
+            }
+        }
+        return NetworkResponse.Error(response.message())
+    }
     fun rateMovie(movieId: Int, rating: Double) = viewModelScope.launch {
         moviesRepository.rateMovie(movieId, rating)
-    }
-
-    fun fetchReviews(movieId: Int) = viewModelScope.launch {
-        moviesRepository.fetchReviews(movieId)
     }
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
+import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.ItemReviewBinding
 import com.example.tmdbmovieappxml.model.Result
 import com.example.tmdbmovieappxml.utils.Constants.Companion.IMAGE_URL
@@ -41,16 +42,23 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
-        val comment = differ.currentList[position]
+        val review = differ.currentList[position]
+        val containsHttp = review.author_details.avatar_path.contains("http", ignoreCase = true)
         holder.binding.apply {
-            Glide.with(profilePic.context)
-                .load(IMAGE_URL + comment.author_details.avatar_path)
-                .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                .into(profilePic)
-            username.text = comment.author
-            rating.text = comment.author_details.rating.toString()
+            if(containsHttp){
+                profilePic.setImageResource(R.drawable.cast_picture)
+                username.text = review.author
+                rating.text = review.author_details.rating.toString()
+                comment.text = review.content
+            }else {
+                Glide.with(profilePic.context)
+                    .load(IMAGE_URL + review.author_details.avatar_path)
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                    .into(profilePic)
+                username.text = review.author
+                rating.text = review.author_details.rating.toString()
+                comment.text = review.content
+            }
         }
     }
-
-
 }
