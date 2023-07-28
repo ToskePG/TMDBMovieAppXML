@@ -1,8 +1,14 @@
 package com.example.tmdbmovieappxml.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
+@Entity(
+    tableName = "movies"
+)
 data class MovieDto(
+    @PrimaryKey
     val id: Int,
     val adult: Boolean,
     val backdrop_path: String,
