@@ -40,9 +40,19 @@ class FavouriteMoviesFragment : Fragment(R.layout.fragment_favourite_movies) {
         viewModel.getFavouriteMovies().observe(viewLifecycleOwner) { movies ->
             moviesAdapter.differ.submitList(movies)
             if(moviesAdapter.differ.currentList.isEmpty()){
-                // Add logic
+                binding.apply {
+                    moviesRecycler.visibility = View.GONE
+                    ivElipse.visibility = View.VISIBLE
+                    camera.visibility = View.VISIBLE
+                    tvNoMovies.visibility = View.VISIBLE
+                }
             }else{
-                // Add logic
+                binding.apply {
+                    moviesRecycler.visibility = View.VISIBLE
+                    ivElipse.visibility = View.GONE
+                    camera.visibility = View.GONE
+                    tvNoMovies.visibility = View.GONE
+                }
             }
         }
         moviesAdapter.setOnItemClickListener { movieDto ->
@@ -76,7 +86,6 @@ class FavouriteMoviesFragment : Fragment(R.layout.fragment_favourite_movies) {
                 }
             }
         }
-
         ItemTouchHelper(itemTouchHelperCallback).apply {
             attachToRecyclerView(binding.moviesRecycler)
         }
