@@ -1,11 +1,12 @@
 package com.example.tmdbmovieappxml.repository
 
+import com.example.tmdbmovieappxml.database.MoviesDatabase
 import com.example.tmdbmovieappxml.model.RatingDto
 import com.example.tmdbmovieappxml.model.RatingResponse
 import com.example.tmdbmovieappxml.remote.RetrofitInstance
 import retrofit2.Response
 
-class MovieRepository {
+class MovieRepository(val moviesDatabase: MoviesDatabase) {
     suspend fun getTopRatedMovies() = RetrofitInstance.api?.getTopRatedMovies()
     suspend fun searchMovies(query: String) = RetrofitInstance.api!!.searchMovies(query = query)
     suspend fun rateMovie(movieId: Int, rating: Double): Response<RatingResponse> {
