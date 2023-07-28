@@ -59,7 +59,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val bundle = Bundle().apply {
             putSerializable("movieDto", movieDto)
         }
-        findNavController().navigate(R.id.singleMovieFragment, bundle)
+        findNavController().navigate(R.id.searchToSingleMovie, bundle)
     }
     private fun initRecyclerView(){
         moviesAdapter = MoviesAdapter()
