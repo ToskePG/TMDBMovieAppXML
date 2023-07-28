@@ -14,8 +14,8 @@ class MovieRepository(val moviesDatabase: MoviesDatabase) {
         val ratingDto = RatingDto(rating)
         return RetrofitInstance.api?.rateMovie(movieId = movieId, ratingDto = ratingDto) ?: error("API is not initialized.")
     }
-    suspend fun fethcCredits(movieId: Int) = RetrofitInstance.api?.getCredits(movieId = movieId)
-    suspend fun fetchReviews(movieId: Int) = RetrofitInstance.api?.getReviews(movieId = movieId)
+    suspend fun fethcCredits(movieId: Int) = RetrofitInstance.api!!.getCredits(movieId = movieId)
+    suspend fun fetchReviews(movieId: Int) = RetrofitInstance.api!!.getReviews(movieId = movieId)
     suspend fun insertMovie(movieDto: MovieDto) = moviesDatabase.getMovieDao().insertMovie(movieDto)
     fun getFavouriteMovies() = moviesDatabase.getMovieDao().getFavouriteMovies()
     suspend fun deleteMovie(movieDto: MovieDto) = moviesDatabase.getMovieDao().deleteMovie(movieDto)

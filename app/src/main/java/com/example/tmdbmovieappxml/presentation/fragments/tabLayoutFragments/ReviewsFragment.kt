@@ -44,7 +44,16 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
                 is NetworkResponse.Success -> {
                     response.data?.let { reviewsResponse->
                         Log.d("ReviewsFragment1234", "List of reviews: ${reviewsResponse.results}")
-                        reviewAdapter.differ.submitList(reviewsResponse.results)
+                        if(reviewsResponse.results == null){
+                            binding.apply {
+                                rvReviews.visibility = View.GONE
+                                ivElipsaEmpty.visibility = View.VISIBLE
+                                ivCamera.visibility = View.VISIBLE
+                                tvNoReviews.visibility = View.VISIBLE
+                            }
+                        }else{
+                            reviewAdapter.differ.submitList(reviewsResponse.results)
+                        }
                     }
                 }
                 is NetworkResponse.Error -> {

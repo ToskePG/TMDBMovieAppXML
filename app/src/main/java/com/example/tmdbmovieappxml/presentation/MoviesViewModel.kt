@@ -1,9 +1,11 @@
 package com.example.tmdbmovieappxml.presentation
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tmdbmovieappxml.model.CreditsDto
+import com.example.tmdbmovieappxml.model.MovieDto
 import com.example.tmdbmovieappxml.model.MoviesDto
 import com.example.tmdbmovieappxml.model.ReviewDto
 import com.example.tmdbmovieappxml.repository.MovieRepository
@@ -24,7 +26,7 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
     fun fetchCredits(movieId: Int) = viewModelScope.launch {
         movieCrew.postValue(NetworkResponse.Loading())
         val crewResponse = moviesRepository.fethcCredits(movieId)
-        movieCrew.postValue(handleCreditsResponse(crewResponse!!))
+        movieCrew.postValue(handleCreditsResponse(crewResponse))
     }
     fun getSearchedMovies(query: String) = viewModelScope.launch {
         searchedMovies.postValue(NetworkResponse.Loading())
@@ -34,7 +36,7 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
     fun fetchReviews(movieId: Int) = viewModelScope.launch {
         reviews.postValue(NetworkResponse.Loading())
         val reviewResponse = moviesRepository.fetchReviews(movieId)
-        reviews.postValue(handleFetchReviews(reviewResponse!!))
+        reviews.postValue(handleFetchReviews(reviewResponse))
     }
     private fun getTopRatedMovies() = viewModelScope.launch {
         topRatedMovies.postValue(NetworkResponse.Loading())
@@ -70,5 +72,20 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
     fun rateMovie(movieId: Int, rating: Double) = viewModelScope.launch {
         moviesRepository.rateMovie(movieId, rating)
     }
+    // Room functions
+    fun addMovieToDatabase(movieDto: MovieDto){
+        viewModelScope.launch {
+            moviesRepository.insertMovie(movieDto)
+        }
+    }
 
+    fun getFavouriteMovies() : LiveData<List<MovieDto>> {
+        return moviesRepository.getFavouriteMovies()
+    }
+
+    fun removeMovie(movie: MovieDto?) {
+        viewModelScope.launch{
+            moviesRepository.deleteMovie(movie!!)
+        }
+    }
 }

@@ -15,6 +15,7 @@ import com.example.tmdbmovieappxml.model.MovieDto
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
 import com.example.tmdbmovieappxml.presentation.MoviesViewModel
 import com.example.tmdbmovieappxml.presentation.adapters.MoviesAdapter
+import com.example.tmdbmovieappxml.utils.NetworkResponse
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -51,6 +52,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 delay(300)
                 if(editable.toString().isNotEmpty()){
                     viewModel.getSearchedMovies(editable.toString())
+                }
+            }
+        }
+        viewModel.searchedMovies.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResponse.Success -> {
+                    response.data?.let { movies ->
+                        moviesAdapter.differ.submitList(movies.results)
+                    }
+                }
+                is NetworkResponse.Loading -> {
+                    print("Getting connection")
+                }
+
+                is NetworkResponse.Error -> {
+                    print("There was an error connecting to the server.")
                 }
             }
         }
