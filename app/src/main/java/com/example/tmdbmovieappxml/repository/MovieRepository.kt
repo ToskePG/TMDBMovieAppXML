@@ -1,6 +1,7 @@
 package com.example.tmdbmovieappxml.repository
 
 import com.example.tmdbmovieappxml.database.MoviesDatabase
+import com.example.tmdbmovieappxml.model.MovieDto
 import com.example.tmdbmovieappxml.model.RatingDto
 import com.example.tmdbmovieappxml.model.RatingResponse
 import com.example.tmdbmovieappxml.remote.RetrofitInstance
@@ -15,4 +16,7 @@ class MovieRepository(val moviesDatabase: MoviesDatabase) {
     }
     suspend fun fethcCredits(movieId: Int) = RetrofitInstance.api?.getCredits(movieId = movieId)
     suspend fun fetchReviews(movieId: Int) = RetrofitInstance.api?.getReviews(movieId = movieId)
+    suspend fun insertMovie(movieDto: MovieDto) = moviesDatabase.getMovieDao().insertMovie(movieDto)
+    fun getFavouriteMovies() = moviesDatabase.getMovieDao().getFavouriteMovies()
+    suspend fun deleteMovie(movieDto: MovieDto) = moviesDatabase.getMovieDao().deleteMovie(movieDto)
 }
