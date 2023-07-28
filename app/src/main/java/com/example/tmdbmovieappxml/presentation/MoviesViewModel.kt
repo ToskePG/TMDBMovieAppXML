@@ -1,9 +1,11 @@
 package com.example.tmdbmovieappxml.presentation
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tmdbmovieappxml.model.CreditsDto
+import com.example.tmdbmovieappxml.model.MovieDto
 import com.example.tmdbmovieappxml.model.MoviesDto
 import com.example.tmdbmovieappxml.model.ReviewDto
 import com.example.tmdbmovieappxml.repository.MovieRepository
@@ -70,5 +72,20 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
     fun rateMovie(movieId: Int, rating: Double) = viewModelScope.launch {
         moviesRepository.rateMovie(movieId, rating)
     }
+    // Room functions
+    fun addMovieToDatabase(movieDto: MovieDto){
+        viewModelScope.launch {
+            moviesRepository.insertMovie(movieDto)
+        }
+    }
 
+    fun getFavouriteMovies() : LiveData<List<MovieDto>> {
+        return moviesRepository.getFavouriteMovies()
+    }
+
+    fun removeMovie(movie: MovieDto?) {
+        viewModelScope.launch{
+            moviesRepository.deleteMovie(movie!!)
+        }
+    }
 }
