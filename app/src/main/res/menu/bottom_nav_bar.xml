@@ -2,6 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:title="@string/top_rated_movies_second"
-        android:icon="@drawable/home_icon"
+        android:icon="@drawable/ranking"
         android:id="@+id/moviesFragment"/>
+    <item
+        android:title="@string/favourite_movies"
+        android:icon="@drawable/star"
+        android:id="@+id/favShows"/>
+    <item
+        android:title="@string/search_for_movies2"
+        android:icon="@drawable/golden_search"
+        android:id="@+id/favouriteMoviesFragment2"/>
 </menu>
