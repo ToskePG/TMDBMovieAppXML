@@ -16,6 +16,7 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
     val topRatedMovies: MutableLiveData<NetworkResponse<MoviesDto>> = MutableLiveData()
     val movieCrew: MutableLiveData<NetworkResponse<CreditsDto>> = MutableLiveData()
     val reviews: MutableLiveData<NetworkResponse<ReviewDto>> = MutableLiveData()
+    val searchedMovies: MutableLiveData<NetworkResponse<MoviesDto>> = MutableLiveData()
 
     init {
         getTopRatedMovies()
@@ -24,6 +25,11 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
         movieCrew.postValue(NetworkResponse.Loading())
         val crewResponse = moviesRepository.fethcCredits(movieId)
         movieCrew.postValue(handleCreditsResponse(crewResponse!!))
+    }
+    fun getSearchedMovies(query: String) = viewModelScope.launch {
+        searchedMovies.postValue(NetworkResponse.Loading())
+        val response = moviesRepository.searchMovies(query)
+        searchedMovies.postValue(handleMoviesResponse(response))
     }
     fun fetchReviews(movieId: Int) = viewModelScope.launch {
         reviews.postValue(NetworkResponse.Loading())
@@ -64,4 +70,5 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
     fun rateMovie(movieId: Int, rating: Double) = viewModelScope.launch {
         moviesRepository.rateMovie(movieId, rating)
     }
+
 }

@@ -73,4 +73,21 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.tmdbmovieappxml.presentation.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/searchToMovies"
+            app:destination="@id/moviesFragment" />
+        <action
+            android:id="@+id/searchToSingleMovie"
+            app:destination="@id/singleMovieFragment" />
+        <argument
+            android:name="movieDto"
+            app:argType="com.example.tmdbmovieappxml.model.MovieDto"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
