@@ -1,6 +1,5 @@
 package com.example.tmdbmovieappxml.presentation.fragments
 
-import android.app.ProgressDialog.show
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +16,6 @@ import com.example.tmdbmovieappxml.presentation.MoviesViewModel
 import com.example.tmdbmovieappxml.presentation.adapters.MoviesAdapter
 import com.google.android.material.snackbar.Snackbar
 
-
 class FavouriteMoviesFragment : Fragment(R.layout.fragment_favourite_movies) {
 
     private lateinit var binding: FragmentFavouriteMoviesBinding
@@ -31,7 +29,6 @@ class FavouriteMoviesFragment : Fragment(R.layout.fragment_favourite_movies) {
         binding = FragmentFavouriteMoviesBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentFavouriteMoviesBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
@@ -73,7 +70,6 @@ class FavouriteMoviesFragment : Fragment(R.layout.fragment_favourite_movies) {
             ): Boolean {
                 return true
             }
-
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val movie = moviesAdapter.differ.currentList[position]
@@ -90,7 +86,6 @@ class FavouriteMoviesFragment : Fragment(R.layout.fragment_favourite_movies) {
             attachToRecyclerView(binding.moviesRecycler)
         }
     }
-
     private fun initRecyclerView() {
         moviesAdapter = MoviesAdapter()
         binding.moviesRecycler.apply {
