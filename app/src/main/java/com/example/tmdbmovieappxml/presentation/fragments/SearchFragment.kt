@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.FragmentSearchBinding
 import com.example.tmdbmovieappxml.presentation.MoviesViewModel
@@ -22,5 +24,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_search, container, false)
+    }
+
+    private fun initRecyclerView(){
+        moviesAdapter = MoviesAdapter()
+        binding.rvMovies.apply {
+            adapter = moviesAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 }
