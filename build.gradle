@@ -1,43 +1,22 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext{
-        core_ktx_version = '1.10.1'
-        lifecycle_version = '2.6.1'
-        nav_version = '2.5.3'
-        appcompat_version = '1.6.1'
-        material_version = '1.11.0-alpha01'
-        constraintlayout_version = '2.1.4'
-        junit_version = '4.13.2'
-        junit_ext_version = '1.1.5'
-        espresso_core_version = '3.5.1'
-        room_runtime_version = '2.5.2'
-        room_compiler_version = '2.5.1'
+        lifecycle_viewmodel_version = '2.2.0'
         corutines_core_version = '1.4.2'
         corutines_android_version = '1.4.1'
-        lifecycle_viewmodel_version = '2.2.0'
-        retrofit_version = '2.9.0'
-        converter_gson_version = '2.9.0'
-        logging_interceptor_version = '5.0.0-alpha.3'
-        navigation_fragment_ktx_version = '2.6.0'
-        navigation_ui_ktx_version = '2.6.0'
-        glide_version = '4.14.2'
-        glide_compiler_version = '4.12.0'
-        kotlin_version = '1.9.0'
     }
     repositories {
         google()
-        mavenCentral()
     }
+
+
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version") //add here.
-        classpath("com.android.tools.build:gradle:8.0.2")
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // Update to the latest Android Gradle Plugin version
+        def nav_version = "2.5.3"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
     }
 }
 plugins {
     id 'com.android.application' version '8.0.2' apply false
     id 'com.android.library' version '8.0.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.8.20' apply false
-    id 'androidx.navigation.safeargs' version '2.4.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
 }
