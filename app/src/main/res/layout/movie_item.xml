@@ -35,7 +35,9 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="@string/movies_second"/>
+            tools:text="@string/movies_second"
+            android:maxLines="2"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/tvMoviesDescription"
