@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="360dp"
+    android:layout_height="412dp"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
@@ -35,17 +35,21 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="@string/movies_second"/>
+            tools:text="@string/movies_second"
+            android:maxLines="2"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/tvMoviesDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="260dp"
             android:textColor="@color/material_dynamic_neutral60"
             android:textSize="20sp"
             android:textStyle="normal"
+            android:maxLines="4"
+            android:ellipsize="end"
             android:text="@string/description" />
 
     </androidx.cardview.widget.CardView>
