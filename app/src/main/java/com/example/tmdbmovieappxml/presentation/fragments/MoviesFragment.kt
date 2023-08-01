@@ -1,5 +1,6 @@
 package com.example.tmdbmovieappxml.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.FragmentMoviesBinding
+import com.example.tmdbmovieappxml.domain.SingleMovieFragmentVisibilityListener
 import com.example.tmdbmovieappxml.model.MovieDto
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
 import com.example.tmdbmovieappxml.presentation.MoviesViewModel
@@ -22,7 +24,9 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var viewModel: MoviesViewModel
-    private var scrollListener: ScrollListener? = null // Add this line to store the ScrollListener reference
+    private var scrollListener: ScrollListener? = null
+    private var singleMovieFragmentVisibilityListener: SingleMovieFragmentVisibilityListener? = null
+
 
     interface ScrollListener {
         fun onScrollStarted()
@@ -35,6 +39,29 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     ): View {
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is SingleMovieFragmentVisibilityListener) {
+            singleMovieFragmentVisibilityListener = context
+        }
+    }
+    private fun setSingleMovieFragmentVisibility(isVisible: Boolean) {
+        singleMovieFragmentVisibilityListener?.onSingleMovieFragmentVisible(isVisible)
+    }
+    override fun onResume() {
+        super.onResume()
+        setSingleMovieFragmentVisibility(false)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        setSingleMovieFragmentVisibility(true)
+    }
+    override fun onDetach() {
+        super.onDetach()
+        singleMovieFragmentVisibilityListener = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
