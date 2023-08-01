@@ -48,6 +48,8 @@
             android:textColor="@color/material_dynamic_neutral60"
             android:textSize="20sp"
             android:textStyle="normal"
+            android:maxLines="4"
+            android:ellipsize="end"
             android:text="@string/description" />
 
     </androidx.cardview.widget.CardView>
