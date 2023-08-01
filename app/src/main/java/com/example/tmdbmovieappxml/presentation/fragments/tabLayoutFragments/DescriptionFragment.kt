@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.BottomSheetDialogRateMovieBinding
 import com.example.tmdbmovieappxml.databinding.FragmentDescriptionBinding
+import com.example.tmdbmovieappxml.model.MovieDto
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
 import com.example.tmdbmovieappxml.presentation.MoviesViewModel
 import com.example.tmdbmovieappxml.presentation.fragments.MoviesFragmentArgs
@@ -42,8 +43,13 @@ class DescriptionFragment : Fragment(R.layout.fragment_description) {
                 tvRating.text = movieRtg.toString()
             }
         }
-        binding.btnButtonAddRating.setOnClickListener{
-            showRatingBottomSheet()
+        binding.apply {
+            btnButtonAddRating.setOnClickListener{
+                showRatingBottomSheet()
+            }
+            btnAddToFavourites.setOnClickListener{
+                addToFavourites(movieDetails!!)
+            }
         }
     }
 
@@ -56,14 +62,30 @@ class DescriptionFragment : Fragment(R.layout.fragment_description) {
             bottomSheetBinding.btnAddRating.isEnabled = fl >= 1
         }
         bottomSheetBinding.btnAddRating.setOnClickListener{
-            Toast.makeText(
-                context,
-                "Thank you for your vote! Your rating has been posted!",
-                Toast.LENGTH_SHORT).show()
+            showToast()
             dialog.dismiss()
             val rating: Double = bottomSheetBinding.ratingBar.rating.toDouble()
             val movieId = args.movieDto?.id
             viewModel.rateMovie(movieId!!, rating)
         }
+    }
+
+    private fun addToFavourites(movieDto: MovieDto){
+        viewModel.addMovieToDatabase(movieDto)
+        showToastForDb()
+    }
+
+    private fun showToast(){
+        Toast.makeText(
+            context,
+            "Thank you for your vote! Your rating has been posted!",
+            Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showToastForDb(){
+        Toast.makeText(
+            context,
+            "Movie has been added to your favourites! ",
+            Toast.LENGTH_SHORT).show()
     }
 }
