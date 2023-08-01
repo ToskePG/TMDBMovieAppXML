@@ -41,4 +41,5 @@
     <string name="your_favourite_movies">Your Favourite Movies</string>
     <string name="favourite_movies">Favourite Movies</string>
     <string name="search_for_movies2">Search for Movies</string>
+    <string name="add_to_favourites">Add to Favourites</string>
 </resources>

@@ -7,9 +7,11 @@
     <item
         android:title="@string/favourite_movies"
         android:icon="@drawable/star"
-        android:id="@+id/favShows"/>
+        android:id="@+id/favouriteMoviesFragment2"/>
     <item
         android:title="@string/search_for_movies2"
-        android:icon="@drawable/golden_search"
-        android:id="@+id/favouriteMoviesFragment2"/>
+        android:icon="@drawable/search_ic"
+        android:id="@+id/favShows"/>
 </menu>
+
+
