@@ -2,9 +2,7 @@ package com.example.tmdbmovieappxml.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.core.view.isInvisible
+import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -16,7 +14,6 @@ import com.example.tmdbmovieappxml.databinding.ActivityMoviesBinding
 import com.example.tmdbmovieappxml.domain.SingleMovieFragmentVisibilityListener
 import com.example.tmdbmovieappxml.presentation.fragments.MoviesFragment
 import com.example.tmdbmovieappxml.repository.MovieRepository
-import com.example.tmdbmovieappxml.utils.Constants.Companion.showNavigationBarDuration
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MoviesActivity : AppCompatActivity(), MoviesFragment.ScrollListener,
@@ -26,8 +23,6 @@ class MoviesActivity : AppCompatActivity(), MoviesFragment.ScrollListener,
     private lateinit var binding: ActivityMoviesBinding
     private lateinit var navController: NavController
     private lateinit var bottomNavigationView: BottomNavigationView
-    private val handler = Handler(Looper.getMainLooper())
-    private var isNavigationBarVisible = true
     private var isScrolling = false
     private var isSingleMovieFragmentVisible = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,14 +31,6 @@ class MoviesActivity : AppCompatActivity(), MoviesFragment.ScrollListener,
         setContentView(binding.root)
         initNavigation()
         initViewModel()
-    }
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        if (!isSingleMovieFragmentVisible) {
-            if (!isScrolling) {
-                resetNavigationBarTimer()
-            }
-        }
     }
     private fun initViewModel(){
         val moviesRepository = MovieRepository(MoviesDatabase(this))
@@ -63,44 +50,47 @@ class MoviesActivity : AppCompatActivity(), MoviesFragment.ScrollListener,
         }
         bottomNavigationView.setupWithNavController(navController)
     }
-    override fun onUserInteraction() {
-        resetNavigationBarTimer()
+    private val fadeInAnimation by lazy {
+        AnimationUtils.loadAnimation(this, R.anim.fade_in)
     }
-    private fun resetNavigationBarTimer() {
-        handler.removeCallbacksAndMessages(null)
-        handler.postDelayed({ hideNavigationBar() }, 2000)
+
+    private val fadeOutAnimation by lazy {
+        AnimationUtils.loadAnimation(this, R.anim.fade_out)
     }
-    private fun hideNavigationBar() {
-        if (isNavigationBarVisible) {
-            binding.bottomNavBar.animate().translationY(bottomNavigationView.height.toFloat())
-            isNavigationBarVisible = false
-        }
-    }
+
     override fun onScrollStarted() {
-        hideBottomNavigation()
+        hideBottomNavigationWithAnimation()
         isScrolling = true
     }
 
     override fun onScrollStopped() {
         isScrolling = false
-        showBottomNavigation()
+        showBottomNavigationWithAnimation()
     }
-    private fun hideBottomNavigation() {
-        binding.bottomNavBar.isInvisible = true
+
+    private fun hideBottomNavigationWithAnimation() {
+        if (bottomNavigationView.isVisible) {
+            bottomNavigationView.startAnimation(fadeOutAnimation)
+            bottomNavigationView.isVisible = false
+        }
     }
-    private fun showBottomNavigation() {
+
+    private fun showBottomNavigationWithAnimation() {
         val currentFragment = navController.currentDestination?.id ?: return
-        binding.bottomNavBar.isVisible = currentFragment !in listOf(
+        bottomNavigationView.isVisible = currentFragment !in listOf(
             R.id.loginFragment,
             R.id.singleMovieFragment
         )
-        handler.removeCallbacksAndMessages(null)
-        handler.postDelayed({ hideBottomNavigation() }, showNavigationBarDuration)
+
+        if (bottomNavigationView.isVisible) {
+            bottomNavigationView.startAnimation(fadeInAnimation)
+        }
     }
+
     override fun onSingleMovieFragmentVisible(isVisible: Boolean) {
         isSingleMovieFragmentVisible = isVisible
         if (!isSingleMovieFragmentVisible && !isScrolling) {
-            resetNavigationBarTimer()
+            showBottomNavigationWithAnimation()
         }
     }
 }
