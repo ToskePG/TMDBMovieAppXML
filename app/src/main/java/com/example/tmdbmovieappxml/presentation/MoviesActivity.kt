@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.animation.AnimationUtils
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -92,12 +93,27 @@ class MoviesActivity : AppCompatActivity(), MoviesFragment.ScrollListener,
             R.id.singleMovieFragment
         )
         handler.removeCallbacksAndMessages(null)
-        handler.postDelayed({ hideBottomNavigation() }, showNavigationBarDuration)
+
+        showBottomNavigationWithAnimation() // Show the bottom navigation with animation
+
+        handler.postDelayed({
+            hideBottomNavigationWithAnimation() // Hide the bottom navigation with animation
+        }, showNavigationBarDuration)
     }
     override fun onSingleMovieFragmentVisible(isVisible: Boolean) {
         isSingleMovieFragmentVisible = isVisible
         if (!isSingleMovieFragmentVisible && !isScrolling) {
             resetNavigationBarTimer()
         }
+    }
+    private fun showBottomNavigationWithAnimation() {
+        val fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        binding.bottomNavBar.startAnimation(fadeInAnimation)
+        binding.bottomNavBar.isVisible = true
+    }
+    private fun hideBottomNavigationWithAnimation() {
+        val fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
+        binding.bottomNavBar.startAnimation(fadeOutAnimation)
+        binding.bottomNavBar.isVisible = false
     }
 }
