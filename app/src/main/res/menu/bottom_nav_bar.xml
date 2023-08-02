@@ -11,7 +11,7 @@
     <item
         android:title="@string/search_for_movies2"
         android:icon="@drawable/search_ic"
-        android:id="@+id/favShows"/>
+        android:id="@+id/searchFragment"/>
 </menu>
 
 
