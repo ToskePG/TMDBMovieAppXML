@@ -36,21 +36,7 @@ class FavouriteMoviesFragment : Fragment(R.layout.fragment_favourite_movies) {
         initRecyclerView()
         viewModel.getFavouriteMovies().observe(viewLifecycleOwner) { movies ->
             moviesAdapter.differ.submitList(movies)
-            if(moviesAdapter.differ.currentList.isEmpty()){
-                binding.apply {
-                    moviesRecycler.visibility = View.GONE
-                    ivElipse.visibility = View.VISIBLE
-                    camera.visibility = View.VISIBLE
-                    tvNoMovies.visibility = View.VISIBLE
-                }
-            }else{
-                binding.apply {
-                    moviesRecycler.visibility = View.VISIBLE
-                    ivElipse.visibility = View.GONE
-                    camera.visibility = View.GONE
-                    tvNoMovies.visibility = View.GONE
-                }
-            }
+            updateEmptyStateVisibility(movies.isEmpty()) // Show/hide the views based on the list size
         }
         moviesAdapter.setOnItemClickListener { movieDto ->
             val bundle = Bundle().apply {
@@ -84,6 +70,21 @@ class FavouriteMoviesFragment : Fragment(R.layout.fragment_favourite_movies) {
         }
         ItemTouchHelper(itemTouchHelperCallback).apply {
             attachToRecyclerView(binding.moviesRecycler)
+        }
+    }
+    private fun updateEmptyStateVisibility(isEmpty: Boolean) {
+        binding.apply {
+            if (isEmpty) {
+                moviesRecycler.visibility = View.GONE
+                ivElipse.visibility = View.VISIBLE
+                camera.visibility = View.VISIBLE
+                tvNoMovies.visibility = View.VISIBLE
+            } else {
+                moviesRecycler.visibility = View.VISIBLE
+                ivElipse.visibility = View.GONE
+                camera.visibility = View.GONE
+                tvNoMovies.visibility = View.GONE
+            }
         }
     }
     private fun initRecyclerView() {
