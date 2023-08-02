@@ -27,7 +27,6 @@ class MoviesActivity : AppCompatActivity(), MoviesFragment.ScrollListener,
     private lateinit var navController: NavController
     private lateinit var bottomNavigationView: BottomNavigationView
     private val handler = Handler(Looper.getMainLooper())
-    private var isNavigationBarVisible = true
     private var isScrolling = false
     private var isSingleMovieFragmentVisible = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,13 +67,11 @@ class MoviesActivity : AppCompatActivity(), MoviesFragment.ScrollListener,
     }
     private fun resetNavigationBarTimer() {
         handler.removeCallbacksAndMessages(null)
-        handler.postDelayed({ hideNavigationBar() }, 2000)
-    }
-    private fun hideNavigationBar() {
-        if (isNavigationBarVisible) {
-            binding.bottomNavBar.animate().translationY(bottomNavigationView.height.toFloat())
-            isNavigationBarVisible = false
-        }
+        handler.postDelayed(
+            {
+                showBottomNavigationForDuration() // Show bottom navigation for 2 seconds
+            },
+            showNavigationBarDuration)
     }
     override fun onScrollStarted() {
         hideBottomNavigation()
@@ -83,12 +80,12 @@ class MoviesActivity : AppCompatActivity(), MoviesFragment.ScrollListener,
 
     override fun onScrollStopped() {
         isScrolling = false
-        showBottomNavigation()
+        showBottomNavigationForDuration() // Show bottom navigation for 2 seconds
     }
     private fun hideBottomNavigation() {
         binding.bottomNavBar.isInvisible = true
     }
-    private fun showBottomNavigation() {
+    private fun showBottomNavigationForDuration() {
         val currentFragment = navController.currentDestination?.id ?: return
         binding.bottomNavBar.isVisible = currentFragment !in listOf(
             R.id.loginFragment,
