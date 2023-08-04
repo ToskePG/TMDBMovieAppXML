@@ -53,40 +53,33 @@ class MoviesActivity : AppCompatActivity(), MoviesFragment.ScrollListener,
     private val fadeInAnimation by lazy {
         AnimationUtils.loadAnimation(this, R.anim.fade_in)
     }
-
     private val fadeOutAnimation by lazy {
         AnimationUtils.loadAnimation(this, R.anim.fade_out)
     }
-
     override fun onScrollStarted() {
         hideBottomNavigationWithAnimation()
         isScrolling = true
     }
-
     override fun onScrollStopped() {
         isScrolling = false
         showBottomNavigationWithAnimation()
     }
-
     private fun hideBottomNavigationWithAnimation() {
         if (bottomNavigationView.isVisible) {
             bottomNavigationView.startAnimation(fadeOutAnimation)
             bottomNavigationView.isVisible = false
         }
     }
-
     private fun showBottomNavigationWithAnimation() {
         val currentFragment = navController.currentDestination?.id ?: return
         bottomNavigationView.isVisible = currentFragment !in listOf(
             R.id.loginFragment,
             R.id.singleMovieFragment
         )
-
         if (bottomNavigationView.isVisible) {
             bottomNavigationView.startAnimation(fadeInAnimation)
         }
     }
-
     override fun onSingleMovieFragmentVisible(isVisible: Boolean) {
         isSingleMovieFragmentVisible = isVisible
         if (!isSingleMovieFragmentVisible && !isScrolling) {
