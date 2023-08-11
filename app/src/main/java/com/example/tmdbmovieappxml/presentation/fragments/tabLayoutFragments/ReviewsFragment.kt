@@ -43,22 +43,12 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
             when(response){
                 is NetworkResponse.Success -> {
                     response.data?.let { reviewsResponse->
-                        Log.d("ReviewsFragment1234", "List of reviews: ${reviewsResponse.results}")
-                        if(reviewsResponse.results == null){
-                            binding.apply {
-                                rvReviews.visibility = View.GONE
-                                ivElipsaEmpty.visibility = View.VISIBLE
-                                ivCamera.visibility = View.VISIBLE
-                                tvNoReviews.visibility = View.VISIBLE
-                            }
-                        }else{
-                            reviewAdapter.differ.submitList(reviewsResponse.results)
-                        }
+                        reviewAdapter.differ.submitList(reviewsResponse.results)
                     }
                 }
                 is NetworkResponse.Error -> {
-                    response.message?.let{
-                        // Report an error
+                    response.message?.let{ errorMessage->
+                        reportError(errorMessage)
                     }
                 }
                 is NetworkResponse.Loading -> {
@@ -69,7 +59,9 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
             }
         }
     }
-
+    private fun reportError(message: String){
+        Log.d("ReviewFragmentError", message)
+    }
     private fun initReviews(movieId: Int){
         viewModel.fetchReviews(movieId)
     }
@@ -82,5 +74,16 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
         val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         binding.rvReviews.addItemDecoration(itemDecoration)
         Log.d("ReviewsFragment123", "ReviewAdapter initialized.")
+        if(reviewAdapter.differ.currentList.isEmpty()){
+            showEmptyState()
+        }
+    }
+    private fun showEmptyState(){
+        binding.apply {
+            rvReviews.visibility = View.GONE
+            ivElipsaEmpty.visibility = View.VISIBLE
+            ivCamera.visibility = View.VISIBLE
+            tvNoReviews.visibility = View.VISIBLE
+        }
     }
 }
