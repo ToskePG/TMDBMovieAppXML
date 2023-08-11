@@ -37,8 +37,8 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MoviesActivity).viewModel
         val movieId = args.movieDto!!.id
-        initRecyclerView()
         initReviews(movieId)
+        initRecyclerView()
         viewModel.reviews.observe(viewLifecycleOwner){response->
             when(response){
                 is NetworkResponse.Success -> {
@@ -79,6 +79,16 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
         Log.d("ReviewsFragment123", "ReviewAdapter initialized.")
         if(reviewAdapter.differ.currentList.isEmpty()){
             showEmptyState()
+        }else{
+            hideEmptyState()
+        }
+    }
+    private fun hideEmptyState(){
+        binding.apply {
+            rvReviews.visibility = View.VISIBLE
+            ivElipsaEmpty.visibility = View.GONE
+            ivCamera.visibility = View.GONE
+            tvNoReviews.visibility = View.GONE
         }
     }
     private fun showEmptyState(){
