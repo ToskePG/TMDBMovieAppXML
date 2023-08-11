@@ -52,8 +52,8 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
                     }
                 }
                 is NetworkResponse.Loading -> {
-                    response.message?.let {
-                        // Report an error
+                    response.message?.let { loadingMessage->
+                        reportLoadingState(loadingMessage)
                     }
                 }
             }
@@ -61,6 +61,9 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
     }
     private fun reportError(message: String){
         Log.d("ReviewFragmentError", message)
+    }
+    private fun reportLoadingState(message: String){
+        Log.d("ReviewFragmentLoading", message)
     }
     private fun initReviews(movieId: Int){
         viewModel.fetchReviews(movieId)
