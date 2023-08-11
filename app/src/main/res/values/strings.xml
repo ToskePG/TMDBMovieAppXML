@@ -42,4 +42,6 @@
     <string name="favourite_movies">Favourite Movies</string>
     <string name="search_for_movies2">Search for Movies</string>
     <string name="add_to_favourites">Add to Favourites</string>
+    <string name="sorry_no_reviews_for_this_movie">Sorry, No Reviews for this movie. :(</string>
+    <string name="empty_state">Empty State</string>
 </resources>
