@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.FragmentReviewsBinding
+import com.example.tmdbmovieappxml.model.Result
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
 import com.example.tmdbmovieappxml.presentation.MoviesViewModel
 import com.example.tmdbmovieappxml.presentation.adapters.ReviewAdapter
@@ -43,7 +44,10 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
             when(response){
                 is NetworkResponse.Success -> {
                     response.data?.let { reviewsResponse->
+                        logReviwes(reviewsResponse.results)
                         reviewAdapter.differ.submitList(reviewsResponse.results)
+                        logCurrentList(reviewAdapter.differ.currentList)
+                        hideEmptyState()
                     }
                 }
                 is NetworkResponse.Error -> {
@@ -58,6 +62,12 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
                 }
             }
         }
+    }
+    private fun logCurrentList(listOfReviews: List<Result>){
+        Log.d("Current Review List: ", listOfReviews.toString())
+    }
+    private fun logReviwes(reviews: List<Result>){
+        Log.d("Review List: ", reviews.toString())
     }
     private fun reportError(message: String){
         Log.d("ReviewFragmentError", message)
