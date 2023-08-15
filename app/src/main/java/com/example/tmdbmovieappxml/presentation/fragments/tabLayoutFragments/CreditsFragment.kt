@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.FragmentCreditsBinding
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
 import com.example.tmdbmovieappxml.presentation.MoviesViewModel
@@ -59,13 +60,13 @@ class CreditsFragment : Fragment() {
             }
         }
         binding.btnCast.setOnClickListener{
-            if(binding.btnCast.text.toString() == "Show Cast Members"){
-                binding.btnCast.text = "Show Crew Members"
+            if(binding.btnCast.text.toString() == getString(R.string.show_cast_members)){
+                binding.btnCast.text = getString(R.string.show_crew_members2)
                 binding.creditsRecycler.visibility = View.GONE
                 binding.castRecycler.visibility = View.VISIBLE
             }
             else{
-                binding.btnCast.text = "Show Cast Members"
+                binding.btnCast.text = getString(R.string.show_cast_members)
                 binding.creditsRecycler.visibility = View.VISIBLE
                 binding.castRecycler.visibility = View.GONE
             }
@@ -78,6 +79,9 @@ class CreditsFragment : Fragment() {
             adapter = creditsAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         }
+        if(creditsAdapter.differ.currentList.isEmpty()){
+            showEmptyState()
+        }
     }
 
     private fun initCastRecyclerView(){
@@ -86,9 +90,17 @@ class CreditsFragment : Fragment() {
             adapter = castAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         }
+        if(castAdapter.differ.currentList.isEmpty()){
+            showEmptyState()
+        }
     }
 
     private fun initMembers(movieId: Int){
         viewModel.fetchCredits(movieId)
+    }
+    
+
+    private fun showEmptyState(){
+
     }
 }

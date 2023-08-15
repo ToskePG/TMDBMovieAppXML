@@ -44,4 +44,5 @@
     <string name="add_to_favourites">Add to Favourites</string>
     <string name="sorry_no_reviews_for_this_movie">Sorry, No Reviews for this movie. :(</string>
     <string name="empty_state">Empty State</string>
+    <string name="show_crew_members2">Show Crew Members</string>
 </resources>
