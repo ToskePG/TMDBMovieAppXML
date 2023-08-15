@@ -1,6 +1,7 @@
 package com.example.tmdbmovieappxml.presentation.fragments.tabLayoutFragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,13 +49,13 @@ class CreditsFragment : Fragment() {
                     }
                 }
                 is NetworkResponse.Error -> {
-                    response.message?.let {
-                        // Report an error
+                    response.message?.let { errorMessage->
+                        reportError(errorMessage)
                     }
                 }
                 is NetworkResponse.Loading -> {
-                    response.message?.let {
-                        // Report an error
+                    response.message?.let { loadingMessage ->
+                        reportLoading(loadingMessage)
                     }
                 }
             }
@@ -71,6 +72,13 @@ class CreditsFragment : Fragment() {
                 binding.castRecycler.visibility = View.GONE
             }
         }
+    }
+
+    private fun reportError(message: String){
+        Log.d("Credits Fragment Error", message)
+    }
+    private fun reportLoading(message: String){
+        Log.d("Fragment Credits Loading", message)
     }
 
     private fun initRecyclerView(){
@@ -98,7 +106,7 @@ class CreditsFragment : Fragment() {
     private fun initMembers(movieId: Int){
         viewModel.fetchCredits(movieId)
     }
-    
+
 
     private fun showEmptyState(){
 
