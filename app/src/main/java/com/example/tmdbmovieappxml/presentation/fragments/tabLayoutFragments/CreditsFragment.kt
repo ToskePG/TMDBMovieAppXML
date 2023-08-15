@@ -31,7 +31,6 @@ class CreditsFragment : Fragment() {
         binding = FragmentCreditsBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentCreditsBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
@@ -73,14 +72,12 @@ class CreditsFragment : Fragment() {
             }
         }
     }
-
     private fun reportError(message: String){
         Log.d("Credits Fragment Error", message)
     }
     private fun reportLoading(message: String){
         Log.d("Fragment Credits Loading", message)
     }
-
     private fun initRecyclerView(){
         creditsAdapter = CreditsAdapter()
         binding.creditsRecycler.apply {
@@ -91,7 +88,6 @@ class CreditsFragment : Fragment() {
             showEmptyState()
         }
     }
-
     private fun initCastRecyclerView(){
         castAdapter = CastAdapter()
         binding.castRecycler.apply {
@@ -102,12 +98,9 @@ class CreditsFragment : Fragment() {
             showEmptyState()
         }
     }
-
     private fun initMembers(movieId: Int){
         viewModel.fetchCredits(movieId)
     }
-
-
     private fun showEmptyState(){
 
     }
