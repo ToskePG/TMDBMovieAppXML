@@ -37,4 +37,44 @@
         android:contentDescription="@string/rv_for_credits"
         android:visibility="gone"/>
 
+    <ImageView
+        android:id="@+id/ivElipsaEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/elipsa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="-96dp"
+        android:visibility="gone"
+        android:contentDescription="@string/empty_state"/>
+
+    <ImageView
+        android:id="@+id/ivCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/camera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="-96dp"
+        android:visibility="gone"
+        android:contentDescription="@string/empty_state"/>
+
+    <TextView
+        android:id="@+id/tvNoCredits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/ivElipsaEmpty"
+        android:text="@string/sorry_there_is_no_record_for_this_movie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:maxLines="2"
+        android:gravity="center"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
