@@ -86,6 +86,8 @@ class CreditsFragment : Fragment() {
         }
         if(creditsAdapter.differ.currentList.isEmpty()){
             showEmptyState()
+        }else{
+            hideEmptyState()
         }
     }
     private fun initCastRecyclerView(){
@@ -96,6 +98,24 @@ class CreditsFragment : Fragment() {
         }
         if(castAdapter.differ.currentList.isEmpty()){
             showEmptyState()
+        }else{
+            hideEmptyState()
+        }
+    }
+    private fun hideEmptyState(){
+        binding.apply {
+            if(btnCast.text == getString(R.string.show_crew_members)){
+                castRecycler.visibility = View.GONE
+                tvNoCredits.visibility = View.VISIBLE
+                ivCamera.visibility = View.VISIBLE
+                ivElipsaEmpty.visibility = View.VISIBLE
+            }
+            else{
+                castRecycler.visibility = View.GONE
+                tvNoCredits.visibility = View.VISIBLE
+                ivCamera.visibility = View.VISIBLE
+                ivElipsaEmpty.visibility = View.VISIBLE
+            }
         }
     }
     private fun initMembers(movieId: Int){
