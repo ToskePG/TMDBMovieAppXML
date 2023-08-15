@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdbmovieappxml.R
 import com.example.tmdbmovieappxml.databinding.FragmentReviewsBinding
+import com.example.tmdbmovieappxml.model.Result
 import com.example.tmdbmovieappxml.presentation.MoviesActivity
 import com.example.tmdbmovieappxml.presentation.MoviesViewModel
 import com.example.tmdbmovieappxml.presentation.adapters.ReviewAdapter
@@ -37,39 +38,43 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MoviesActivity).viewModel
         val movieId = args.movieDto!!.id
-        initRecyclerView()
         initReviews(movieId)
+        initRecyclerView()
         viewModel.reviews.observe(viewLifecycleOwner){response->
             when(response){
                 is NetworkResponse.Success -> {
                     response.data?.let { reviewsResponse->
-                        Log.d("ReviewsFragment1234", "List of reviews: ${reviewsResponse.results}")
-                        if(reviewsResponse.results == null){
-                            binding.apply {
-                                rvReviews.visibility = View.GONE
-                                ivElipsaEmpty.visibility = View.VISIBLE
-                                ivCamera.visibility = View.VISIBLE
-                                tvNoReviews.visibility = View.VISIBLE
-                            }
-                        }else{
-                            reviewAdapter.differ.submitList(reviewsResponse.results)
-                        }
+                        logReviwes(reviewsResponse.results)
+                        reviewAdapter.differ.submitList(reviewsResponse.results)
+                        logCurrentList(reviewAdapter.differ.currentList)
+                        hideEmptyState()
                     }
                 }
                 is NetworkResponse.Error -> {
-                    response.message?.let{
-                        // Report an error
+                    response.message?.let{ errorMessage->
+                        reportError(errorMessage)
                     }
                 }
                 is NetworkResponse.Loading -> {
-                    response.message?.let {
-                        // Report an error
+                    response.message?.let { loadingMessage->
+                        reportLoadingState(loadingMessage)
                     }
                 }
             }
         }
     }
-
+    private fun logCurrentList(listOfReviews: List<Result>){
+        Log.d("Current Review List: ", listOfReviews.toString())
+    }
+    private fun logReviwes(reviews: List<Result>){
+        Log.d("Review List: ", reviews.toString())
+    }
+    private fun reportError(message: String){
+        Log.d("ReviewFragmentError", message)
+    }
+    private fun reportLoadingState(message: String){
+        Log.d("ReviewFragmentLoading", message)
+    }
     private fun initReviews(movieId: Int){
         viewModel.fetchReviews(movieId)
     }
@@ -82,5 +87,26 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
         val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         binding.rvReviews.addItemDecoration(itemDecoration)
         Log.d("ReviewsFragment123", "ReviewAdapter initialized.")
+        if(reviewAdapter.differ.currentList.isEmpty()){
+            showEmptyState()
+        }else{
+            hideEmptyState()
+        }
+    }
+    private fun hideEmptyState(){
+        binding.apply {
+            rvReviews.visibility = View.VISIBLE
+            ivElipsaEmpty.visibility = View.GONE
+            ivCamera.visibility = View.GONE
+            tvNoReviews.visibility = View.GONE
+        }
+    }
+    private fun showEmptyState(){
+        binding.apply {
+            rvReviews.visibility = View.GONE
+            ivElipsaEmpty.visibility = View.VISIBLE
+            ivCamera.visibility = View.VISIBLE
+            tvNoReviews.visibility = View.VISIBLE
+        }
     }
 }

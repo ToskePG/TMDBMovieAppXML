@@ -43,20 +43,20 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
         val review = differ.currentList[position]
-        val containsHttp = review.author_details.avatar_path.contains("http", ignoreCase = true)
+        val containsHttp: Boolean = review.author_details?.avatar_path?.contains("http", ignoreCase = true) ?: false
         holder.binding.apply {
-            if(containsHttp){
+            if (containsHttp) {
                 profilePic.setImageResource(R.drawable.cast_picture)
                 username.text = review.author
-                rating.text = review.author_details.rating.toString()
+                rating.text = review.author_details?.rating.toString()
                 comment.text = review.content
-            }else {
+            } else {
                 Glide.with(profilePic.context)
-                    .load(IMAGE_URL + review.author_details.avatar_path)
+                    .load(IMAGE_URL + review.author_details?.avatar_path)
                     .apply(RequestOptions.bitmapTransform(CircleCrop()))
                     .into(profilePic)
                 username.text = review.author
-                rating.text = review.author_details.rating.toString()
+                rating.text = review.author_details?.rating.toString()
                 comment.text = review.content
             }
         }
