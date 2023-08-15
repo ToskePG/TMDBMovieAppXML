@@ -45,4 +45,5 @@
     <string name="sorry_no_reviews_for_this_movie">Sorry, No Reviews for this movie. :(</string>
     <string name="empty_state">Empty State</string>
     <string name="show_crew_members2">Show Crew Members</string>
+    <string name="sorry_there_is_no_record_for_this_movie">Sorry, There is no record for this movie :(</string>
 </resources>

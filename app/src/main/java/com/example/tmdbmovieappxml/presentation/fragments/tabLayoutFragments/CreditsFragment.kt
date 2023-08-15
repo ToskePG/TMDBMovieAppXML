@@ -102,6 +102,19 @@ class CreditsFragment : Fragment() {
         viewModel.fetchCredits(movieId)
     }
     private fun showEmptyState(){
-
+        binding.apply {
+            if(btnCast.text == getString(R.string.show_cast_members)){
+                castRecycler.visibility = View.GONE
+                tvNoCredits.visibility = View.VISIBLE
+                ivCamera.visibility = View.VISIBLE
+                ivElipsaEmpty.visibility = View.VISIBLE
+            }
+            else{
+                castRecycler.visibility = View.GONE
+                tvNoCredits.visibility = View.VISIBLE
+                ivCamera.visibility = View.VISIBLE
+                ivElipsaEmpty.visibility = View.VISIBLE
+            }
+        }
     }
 }
