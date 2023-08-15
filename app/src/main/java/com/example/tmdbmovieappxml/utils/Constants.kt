@@ -6,6 +6,5 @@ class Constants {
         const val BASE_URL = "https://api.themoviedb.org/3/"
         const val IMAGE_URL = "https://image.tmdb.org/t/p/original"
         const val TOKEN_BEARER = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkN2IyMDViYzBjNmUyNmRiMjJlNTdiYTIyNDhiMzZiMyIsInN1YiI6IjY0MjE0ZTkyMjNiZTQ2MDBmZWJlNWUwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Gren2J4MHYkXarrOXKSVh4wCuPqZY4sU_B9xlQ_3Qow"
-        const val showNavigationBarDuration = 2000L
     }
 }
