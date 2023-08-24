@@ -47,17 +47,23 @@ class ReviewsFragment : Fragment(R.layout.fragment_reviews) {
                         logReviwes(reviewsResponse.results)
                         reviewAdapter.differ.submitList(reviewsResponse.results)
                         logCurrentList(reviewAdapter.differ.currentList)
-                        hideEmptyState()
+                        if (reviewsResponse.results.isEmpty()) {
+                            showEmptyState()
+                        } else {
+                            hideEmptyState()
+                        }
                     }
                 }
                 is NetworkResponse.Error -> {
                     response.message?.let{ errorMessage->
                         reportError(errorMessage)
+                        showEmptyState()
                     }
                 }
                 is NetworkResponse.Loading -> {
                     response.message?.let { loadingMessage->
                         reportLoadingState(loadingMessage)
+                        showEmptyState()
                     }
                 }
             }
