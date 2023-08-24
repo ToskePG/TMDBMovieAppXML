@@ -27,7 +27,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     private lateinit var viewModel: MoviesViewModel
     private var scrollListener: ScrollListener? = null
     private var singleMovieFragmentVisibilityListener: SingleMovieFragmentVisibilityListener? = null
-    
+
     interface ScrollListener {
         fun onScrollStarted()
         fun onScrollStopped()

@@ -64,11 +64,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     }
                 }
                 is NetworkResponse.Loading -> {
-                    reportLoading(response.message.toString())
+                    response.message?.let{ reportMessage->
+                        reportLoading(reportMessage)
+                    }
                 }
-
                 is NetworkResponse.Error -> {
-                    reportError(response.message.toString())
+                    response.message?.let{ reportMessage->
+                        reportError(reportMessage)
+                    }
                 }
             }
         }
