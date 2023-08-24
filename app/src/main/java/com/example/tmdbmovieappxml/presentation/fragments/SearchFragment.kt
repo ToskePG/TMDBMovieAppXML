@@ -80,6 +80,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
         else{
             val bundle = Bundle().apply {
+                if(movieDto.poster_path == null){
+                    movieDto.poster_path = "/7Kf9F5VuIMCcGs2UPL5f0eruZK5.jpg"
+                }
+                if(movieDto.backdrop_path == null){
+                    movieDto.backdrop_path = "/7Kf9F5VuIMCcGs2UPL5f0eruZK5.jpg"
+                }
                 putSerializable("movieDto", movieDto)
             }
             findNavController().navigate(R.id.searchToSingleMovie, bundle)
