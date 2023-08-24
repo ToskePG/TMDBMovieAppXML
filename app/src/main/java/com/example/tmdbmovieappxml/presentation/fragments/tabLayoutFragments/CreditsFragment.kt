@@ -45,6 +45,11 @@ class CreditsFragment : Fragment() {
                     response.data?.let { castResponse ->
                         castAdapter.differ.submitList(castResponse.cast)
                         creditsAdapter.differ.submitList(castResponse.crew)
+                        if(creditsAdapter.differ.currentList.isEmpty() && creditsAdapter.differ.currentList.isEmpty()){
+                            showEmptyState()
+                        }else{
+                            hideEmptyState()
+                        }
                     }
                 }
                 is NetworkResponse.Error -> {
@@ -84,11 +89,6 @@ class CreditsFragment : Fragment() {
             adapter = creditsAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         }
-        if(creditsAdapter.differ.currentList.isEmpty()){
-            showEmptyState()
-        }else{
-            hideEmptyState()
-        }
     }
     private fun initCastRecyclerView(){
         castAdapter = CastAdapter()
@@ -96,26 +96,13 @@ class CreditsFragment : Fragment() {
             adapter = castAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         }
-        if(castAdapter.differ.currentList.isEmpty()){
-            showEmptyState()
-        }else{
-            hideEmptyState()
-        }
     }
     private fun hideEmptyState(){
         binding.apply {
-            if(btnCast.text == getString(R.string.show_crew_members)){
-                castRecycler.visibility = View.GONE
-                tvNoCredits.visibility = View.VISIBLE
-                ivCamera.visibility = View.VISIBLE
-                ivElipsaEmpty.visibility = View.VISIBLE
-            }
-            else{
-                castRecycler.visibility = View.GONE
-                tvNoCredits.visibility = View.VISIBLE
-                ivCamera.visibility = View.VISIBLE
-                ivElipsaEmpty.visibility = View.VISIBLE
-            }
+                castRecycler.visibility = View.VISIBLE
+                tvNoCredits.visibility = View.GONE
+                ivCamera.visibility = View.GONE
+                ivElipsaEmpty.visibility = View.GONE
         }
     }
     private fun initMembers(movieId: Int){
@@ -123,18 +110,10 @@ class CreditsFragment : Fragment() {
     }
     private fun showEmptyState(){
         binding.apply {
-            if(btnCast.text == getString(R.string.show_cast_members)){
                 castRecycler.visibility = View.GONE
                 tvNoCredits.visibility = View.VISIBLE
                 ivCamera.visibility = View.VISIBLE
                 ivElipsaEmpty.visibility = View.VISIBLE
-            }
-            else{
-                castRecycler.visibility = View.GONE
-                tvNoCredits.visibility = View.VISIBLE
-                ivCamera.visibility = View.VISIBLE
-                ivElipsaEmpty.visibility = View.VISIBLE
-            }
         }
     }
 }

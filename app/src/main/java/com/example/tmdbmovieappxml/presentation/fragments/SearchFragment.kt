@@ -1,6 +1,7 @@
 package com.example.tmdbmovieappxml.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -63,11 +64,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     }
                 }
                 is NetworkResponse.Loading -> {
-                    print("Getting connection")
+                    response.message?.let{ reportMessage->
+                        reportLoading(reportMessage)
+                    }
                 }
-
                 is NetworkResponse.Error -> {
-                    print("There was an error connecting to the server.")
+                    response.message?.let{ reportMessage->
+                        reportError(reportMessage)
+                    }
                 }
             }
         }
@@ -100,5 +104,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+    private fun reportError(message: String){
+        Log.d("SearchFragmentError", message)
+    }
+    private fun reportLoading(message: String){
+        Log.d("SearchFragmentLoading", message)
     }
 }

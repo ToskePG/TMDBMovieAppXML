@@ -2,6 +2,7 @@ package com.example.tmdbmovieappxml.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,12 +28,10 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     private var scrollListener: ScrollListener? = null
     private var singleMovieFragmentVisibilityListener: SingleMovieFragmentVisibilityListener? = null
 
-
     interface ScrollListener {
         fun onScrollStarted()
         fun onScrollStopped()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +39,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is SingleMovieFragmentVisibilityListener) {
@@ -54,7 +52,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         super.onResume()
         setSingleMovieFragmentVisibility(false)
     }
-
     override fun onPause() {
         super.onPause()
         setSingleMovieFragmentVisibility(true)
@@ -63,7 +60,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         super.onDetach()
         singleMovieFragmentVisibilityListener = null
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentMoviesBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
@@ -82,23 +78,27 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                     }
                 }
                 is NetworkResponse.Error -> {
-                    response.message?.let {
-                        // Report an error
+                    response.message?.let { reportMessage->
+                        logErrorMessage(reportMessage)
                     }
                 }
                 is NetworkResponse.Loading -> {
-                    response.message?.let {
-                        // Report an error
+                    response.message?.let { reportMessage->
+                        logLoadingMessage(reportMessage)
                     }
                 }
             }
         }
     }
-
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-
+    private fun logLoadingMessage(message: String){
+        Log.d("MoviesFragmentLoading", message)
+    }
+    private fun logErrorMessage(message: String){
+        Log.d("MoviesFragmentError", message)
+    }
     private fun setUpRecyclerView(){
         moviesAdapter = MoviesAdapter()
         binding.moviesRecycler.apply {
@@ -115,7 +115,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             }
         })
     }
-
     private fun goToMovieDetails(movieDto: MovieDto){
         val bundle = Bundle().apply {
             putSerializable("movieDto", movieDto)

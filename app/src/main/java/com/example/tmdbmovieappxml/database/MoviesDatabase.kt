@@ -9,7 +9,7 @@ import com.example.tmdbmovieappxml.model.MovieDto
 
 @Database(
     entities = [MovieDto::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(Converters::class)
 abstract class MoviesDatabase : RoomDatabase() {
@@ -28,6 +28,6 @@ abstract class MoviesDatabase : RoomDatabase() {
 
         private fun createDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext, MoviesDatabase::class.java, "movie_db.db"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 }
