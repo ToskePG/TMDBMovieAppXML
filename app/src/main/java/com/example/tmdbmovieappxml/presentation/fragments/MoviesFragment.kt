@@ -95,7 +95,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             }
         }
     }
-
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
@@ -121,7 +120,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             }
         })
     }
-
     private fun goToMovieDetails(movieDto: MovieDto){
         val bundle = Bundle().apply {
             putSerializable("movieDto", movieDto)
