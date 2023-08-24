@@ -72,11 +72,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
     }
-    private fun goToMovieDetails(movieDto: MovieDto){
-        val bundle = Bundle().apply {
-            putSerializable("movieDto", movieDto)
+    private fun goToMovieDetails(movieDto: MovieDto?){
+        if(movieDto == null){
+            moviesAdapter.setOnItemClickListener {
+                showToast("Cant open more information on this movie. ")
+            }
         }
-        findNavController().navigate(R.id.searchToSingleMovie, bundle)
+        else{
+            val bundle = Bundle().apply {
+                putSerializable("movieDto", movieDto)
+            }
+            findNavController().navigate(R.id.searchToSingleMovie, bundle)
+        }
     }
     private fun initRecyclerView(){
         moviesAdapter = MoviesAdapter()

@@ -88,4 +88,14 @@ class MoviesViewModel(private val moviesRepository: MovieRepository) : ViewModel
             moviesRepository.deleteMovie(movie!!)
         }
     }
+
+    fun validatePassword(password: String) : Boolean{
+        val passwordPattern = Regex("(?=.*[A-Z])(?=.*\\d).{8,}")
+        return passwordPattern.matches(password)
+    }
+    fun validateEmail(email: String) : Boolean {
+        val emailPattern = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\$")
+        return emailPattern.matches(email)
+    }
+    fun checkLoginButton(email: String, password: String) = validateEmail(email) && validatePassword(password)
 }
