@@ -27,13 +27,11 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     private lateinit var viewModel: MoviesViewModel
     private var scrollListener: ScrollListener? = null
     private var singleMovieFragmentVisibilityListener: SingleMovieFragmentVisibilityListener? = null
-
-
+    
     interface ScrollListener {
         fun onScrollStarted()
         fun onScrollStopped()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +39,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is SingleMovieFragmentVisibilityListener) {
@@ -55,7 +52,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         super.onResume()
         setSingleMovieFragmentVisibility(false)
     }
-
     override fun onPause() {
         super.onPause()
         setSingleMovieFragmentVisibility(true)
@@ -64,7 +60,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         super.onDetach()
         singleMovieFragmentVisibilityListener = null
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentMoviesBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
