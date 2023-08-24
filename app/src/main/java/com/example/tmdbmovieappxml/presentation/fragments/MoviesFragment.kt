@@ -2,6 +2,7 @@ package com.example.tmdbmovieappxml.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -82,13 +83,13 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                     }
                 }
                 is NetworkResponse.Error -> {
-                    response.message?.let {
-                        // Report an error
+                    response.message?.let { reportMessage->
+                        logErrorMessage(reportMessage)
                     }
                 }
                 is NetworkResponse.Loading -> {
-                    response.message?.let {
-                        // Report an error
+                    response.message?.let { reportMessage->
+                        logLoadingMessage(reportMessage)
                     }
                 }
             }
@@ -98,7 +99,12 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-
+    private fun logLoadingMessage(message: String){
+        Log.d("MoviesFragmentLoading", message)
+    }
+    private fun logErrorMessage(message: String){
+        Log.d("MoviesFragmentError", message)
+    }
     private fun setUpRecyclerView(){
         moviesAdapter = MoviesAdapter()
         binding.moviesRecycler.apply {
