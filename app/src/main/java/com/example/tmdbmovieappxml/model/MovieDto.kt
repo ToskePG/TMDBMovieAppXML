@@ -10,17 +10,17 @@ import java.io.Serializable
 data class MovieDto(
     @PrimaryKey
     val id: Int,
-    val adult: Boolean,
+    var adult: Boolean,
     var backdrop_path: String?,
-    val genre_ids: List<Int>?,
-    val original_language: String?,
-    val original_title: String?,
-    val overview: String?,
-    val popularity: Double?,
+    var genre_ids: List<Int>?,
+    var original_language: String?,
+    var original_title: String?,
+    var overview: String?,
+    var popularity: Double?,
     var poster_path: String?,
-    val release_date: String?,
+    var release_date: String?,
     val title: String,
-    val video: Boolean,
-    val vote_average: Double?,
-    val vote_count: Int?
+    var video: Boolean,
+    var vote_average: Double?,
+    var vote_count: Int?
 ) : Serializable

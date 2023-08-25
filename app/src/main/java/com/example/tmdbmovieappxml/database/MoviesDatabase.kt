@@ -9,7 +9,7 @@ import com.example.tmdbmovieappxml.model.MovieDto
 
 @Database(
     entities = [MovieDto::class],
-    version = 2
+    version = 3
 )
 @TypeConverters(Converters::class)
 abstract class MoviesDatabase : RoomDatabase() {

@@ -36,7 +36,7 @@ class FavouriteMoviesFragment : Fragment(R.layout.fragment_favourite_movies) {
         initRecyclerView()
         viewModel.getFavouriteMovies().observe(viewLifecycleOwner) { movies ->
             moviesAdapter.differ.submitList(movies)
-            updateEmptyStateVisibility(movies.isEmpty()) // Show/hide the views based on the list size
+            updateEmptyStateVisibility(movies.isEmpty())
         }
         moviesAdapter.setOnItemClickListener { movieDto ->
             val bundle = Bundle().apply {
