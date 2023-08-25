@@ -43,7 +43,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         viewModel = (activity as MoviesActivity).viewModel
         initRecyclerView()
         moviesAdapter.setOnItemClickListener {movieDto->
-            showToast(movieDto.original_title)
+            showToast(movieDto.original_title.toString())
             goToMovieDetails(movieDto)
         }
         var job: Job? = null
@@ -84,11 +84,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
         else{
             val bundle = Bundle().apply {
-                if(movieDto.poster_path == null){
-                    movieDto.poster_path = "/7Kf9F5VuIMCcGs2UPL5f0eruZK5.jpg"
-                }
-                if(movieDto.backdrop_path == null){
-                    movieDto.backdrop_path = "/7Kf9F5VuIMCcGs2UPL5f0eruZK5.jpg"
+                movieDto.apply {
+                    if(poster_path == null){
+                        poster_path = "/7Kf9F5VuIMCcGs2UPL5f0eruZK5.jpg"
+                    }
+                    if(backdrop_path == null){
+                        backdrop_path = "/7Kf9F5VuIMCcGs2UPL5f0eruZK5.jpg"
+                    }
+                    if(genre_ids == null){
+                        genre_ids = listOf(1)
+                    }
+                    if(vote_average == null){
+                        vote_average = 0.0
+                    }
+                    if(vote_count == null){
+                        vote_count = 0
+                    }
                 }
                 putSerializable("movieDto", movieDto)
             }
