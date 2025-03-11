@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdbmovieappxml.R
@@ -23,6 +24,8 @@ class CreditsFragment : Fragment() {
     private lateinit var castAdapter: CastAdapter
     private val args: CreditsFragmentArgs by navArgs()
     private lateinit var viewModel: MoviesViewModel
+    // State variable to track whether the cast or credits is shown
+    private var isCastVisible: Boolean = false // True if cast is visible, false if credits are visible
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +39,9 @@ class CreditsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MoviesActivity).viewModel
         val movieId = args.movieDto!!.id
-        initRecyclerView()
+        // Set initial visibility based on the state variable
+        setRecyclerVisibility()
+        initCrewRecycler()
         initCastRecyclerView()
         initMembers(movieId)
         viewModel.movieCrew.observe(viewLifecycleOwner) { response ->
@@ -64,16 +69,15 @@ class CreditsFragment : Fragment() {
                 }
             }
         }
-        binding.btnCast.setOnClickListener{
-            if(binding.btnCast.text.toString() == getString(R.string.show_cast_members)){
+        // Toggle RecyclerView visibility based on the button click
+        binding.btnCast.setOnClickListener {
+            isCastVisible = !isCastVisible  // Toggle the state
+            setRecyclerVisibility() // Update RecyclerView visibility based on the state
+            // Change button text based on the state
+            if (isCastVisible) {
                 binding.btnCast.text = getString(R.string.show_crew_members2)
-                binding.creditsRecycler.visibility = View.GONE
-                binding.castRecycler.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 binding.btnCast.text = getString(R.string.show_cast_members)
-                binding.creditsRecycler.visibility = View.VISIBLE
-                binding.castRecycler.visibility = View.GONE
             }
         }
     }
@@ -83,14 +87,29 @@ class CreditsFragment : Fragment() {
     private fun reportLoading(message: String){
         Log.d("Fragment Credits Loading", message)
     }
-    private fun initRecyclerView(){
+    private fun setRecyclerVisibility() {
+        // Force both RecyclerViews to be gone before applying visibility based on state
+        binding.castRecycler.visibility = View.GONE
+        binding.crewRecycler.visibility = View.GONE
+
+        if (isCastVisible) {
+            binding.castRecycler.visibility = View.VISIBLE
+            Log.d("RecyclerView Visibility", "Cast Recycler is visible")
+        } else {
+            binding.crewRecycler.visibility = View.VISIBLE
+            Log.d("RecyclerView Visibility", "Credits Recycler is visible")
+        }
+    }
+    private fun buttonCastState() : Boolean = binding.btnCast.text.toString() == getString(R.string.show_cast_members)
+    private fun initCrewRecycler(){
         creditsAdapter = CreditsAdapter()
-        binding.creditsRecycler.apply {
+        binding.crewRecycler.apply {
             adapter = creditsAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         }
     }
     private fun initCastRecyclerView(){
+        binding.castRecycler.isVisible = false
         castAdapter = CastAdapter()
         binding.castRecycler.apply {
             adapter = castAdapter
@@ -99,7 +118,7 @@ class CreditsFragment : Fragment() {
     }
     private fun hideEmptyState(){
         binding.apply {
-                castRecycler.visibility = View.VISIBLE
+                crewRecycler.visibility = View.VISIBLE
                 tvNoCredits.visibility = View.GONE
                 ivCamera.visibility = View.GONE
                 ivElipsaEmpty.visibility = View.GONE
