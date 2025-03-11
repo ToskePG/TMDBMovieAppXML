@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.fragments.tabLayoutFragments.DescriptionFragment"
-    android:maxHeight="360dp">
+    android:maxHeight="424dp">
 
     <TextView
         android:id="@+id/tvOverview"
@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:ellipsize="end"
         android:text="@string/godfather_overview"
         />
@@ -45,14 +45,14 @@
         android:layout_marginTop="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:text="@string/_3_5"
         android:textStyle="bold"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddToFavourites"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="49dp"
         app:layout_constraintBottom_toTopOf="@id/btnButtonAddRating"
         android:layout_marginBottom="-2dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,9 +68,9 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnButtonAddRating"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="49dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="24dp"

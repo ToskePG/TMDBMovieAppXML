@@ -21,7 +21,7 @@
             android:id="@+id/ivStar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="53dp"
             android:layout_marginEnd="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,14 +30,14 @@
 
         <TextView
             android:id="@+id/rating"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/_3"
             android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/ivStar"
             app:layout_constraintTop_toTopOf="@+id/ivStar"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="-1dp"
+            android:layout_marginTop="-6dp"
             android:textColor="#3d1d72"
             android:textStyle="bold"/>
 

@@ -90,7 +90,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             }
         }
     }
-    private fun showToast(message: String) {
+    private fun showToast(message: String?) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
     private fun logLoadingMessage(message: String){

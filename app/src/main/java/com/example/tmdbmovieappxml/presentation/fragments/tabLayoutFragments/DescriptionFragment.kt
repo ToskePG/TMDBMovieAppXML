@@ -1,6 +1,7 @@
 package com.example.tmdbmovieappxml.presentation.fragments.tabLayoutFragments
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,7 @@ class DescriptionFragment : Fragment(R.layout.fragment_description) {
         return  binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieDetails = args.movieDto
@@ -37,7 +39,7 @@ class DescriptionFragment : Fragment(R.layout.fragment_description) {
         if(movieDetails!=null){
             binding.apply {
                 tvOverview.text = movieDetails.overview
-                val movieRtg = (movieDetails.vote_average)/2
+                val movieRtg = (movieDetails.vote_average!!)/2
                 val rtg = movieRtg.toFloat()
                 rbRatingBar.rating = rtg
                 tvRating.text = movieRtg.toString()
